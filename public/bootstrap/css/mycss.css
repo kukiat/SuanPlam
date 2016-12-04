@@ -1,0 +1,184 @@
+.searchinput {
+  width: 200px;
+}
+.searchclear {
+  position: absolute;
+  right: 5px;
+  top: 0;
+  bottom: 0;
+  height: 14px;
+  margin: auto;
+  font-size: 14px;
+  cursor: pointer;
+  color: #667071;
+}
+.bb{
+    background-color: #fffffe;
+    padding: 10px 11px 10px 11px;
+    width: 321px;
+    font-size: 16px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    border-radius: 3px;
+    -webkit-box-shadow: 0 1px 3px 0px #BFBFBF;
+    box-shadow: 0 1px 3px 0px #BFBFBF;
+    margin-bottom: 10px;
+}
+.search{
+    padding: 7px 13px 7px 13px;
+    color: #414141;
+    font-size: 16px;
+    font-weight: 100;
+    border-radius: 4px;
+    width: 260px;
+    margin: 0px auto;
+    border-width: 0px;
+    outline: none;
+    float: left;
+    margin-left: 5px;
+    border: 1px solid #ba0808;
+}
+
+.box{
+    width: 380px;
+    font-size: 21px;
+    font-weight: bold;
+    background-color: #ff7300;
+    text-align: center;
+    border-radius: 3px 3px 0px 0px;
+    padding: 7px 0px 7px 0px;
+    float: left;
+}
+.clear_textSearch {
+    margin-top: 70px;
+    margin-right: 10px;
+    float: left;
+    height: 22px;
+    width: 22px;
+    padding: 0px;
+    font-size: 16px;
+    text-align: center;
+    z-index: 0;
+    border-radius: 50%;
+    background-color: #667071;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    display: none;
+
+}
+.box2{
+    width: 553px;
+    font-size: 21px;
+    font-weight: bold;
+    color: #fffffe;
+    background-color: #2a5ba9;
+    text-align: center;
+    border-radius: 3px 3px 0px 0px;
+    padding: 7px 0px 7px 0px;
+    float: left;
+}
+.box-detail {
+    -webkit-box-shadow: 0 1px 3px 0px #BFBFBF;
+    box-shadow: 0 1px 3px 0px #BFBFBF;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: #fffffe;
+    height: auto;
+    overflow: auto;
+    width: 495px;
+    float: left;
+    margin-top: 10px;
+    cursor: pointer;
+}
+.box-left{
+    float: left;
+    width: 120px;
+    border-right-color: #eeeeee;
+    border-right-style: solid;
+    border-right-width: 1px;
+    height: auto;
+    text-align: center;
+    overflow: auto;
+    height: 45px;
+    padding: 3px;
+    margin-top: 6px;
+}
+.box-right {
+    width: 350px;
+    height: 56px;
+    padding:0px;
+    padding-left:20px;
+    float: left;
+}
+a:hover {
+    color: hotpink;
+}
+.size-text-left {
+    width: 100px;
+    padding: 0px 3px 0px 0px;
+    text-transform: uppercase;
+    color: #525860;
+    background-color: transparent;
+    font-size: 23px;
+    font-weight: bold;
+    text-align: center;
+    float: left;
+    display: block;
+    overflow: auto;
+}
+.dropdown-department {
+    float: left;
+    font-size: 14px;
+    height: 31px;
+    /* padding: 7px 7px; */
+    margin-left: 5px;
+    border-radius: 4px;
+    background-color: #ff5c00;
+    color: #fff;
+    border-color: transparent;
+    outline: 0px;
+}
+.dropdown-department option {
+    background-color: #fff;
+    color: #000;
+}
+
+
+/*#custom-bootstrap-menu.navbar-default .navbar-brand {
+    color: rgba(255, 255, 255, 1);
+}
+#custom-bootstrap-menu.navbar-default {
+    font-size: 17px;
+    background-color: rgba(255, 153, 0, 1);
+    border-bottom-width: 0px;
+}
+#custom-bootstrap-menu.navbar-default .navbar-nav>li>a {
+    color: rgba(252, 239, 239, 1);
+    background-color: rgba(255, 153, 0, 1);
+}
+#custom-bootstrap-menu.navbar-default .navbar-nav>li>a:hover,
+#custom-bootstrap-menu.navbar-default .navbar-nav>li>a:focus {
+    color: rgba(0, 0, 0, 1);
+    background-color: rgba(255, 121, 0, 1);
+}
+#custom-bootstrap-menu.navbar-default .navbar-nav>.active>a,
+#custom-bootstrap-menu.navbar-default .navbar-nav>.active>a:hover,
+#custom-bootstrap-menu.navbar-default .navbar-nav>.active>a:focus {
+    color: rgba(0, 0, 0, 1);
+    background-color: rgba(255, 121, 0, 1);
+}
+#custom-bootstrap-menu.navbar-default .navbar-toggle {
+    border-color: #ff7900;
+}
+#custom-bootstrap-menu.navbar-default .navbar-toggle:hover,
+#custom-bootstrap-menu.navbar-default .navbar-toggle:focus {
+    background-color: #ff7900;
+}
+#custom-bootstrap-menu.navbar-default .navbar-toggle .icon-bar {
+    background-color: #ff7900;
+}
+#custom-bootstrap-menu.navbar-default .navbar-toggle:hover .icon-bar,
+#custom-bootstrap-menu.navbar-default .navbar-toggle:focus .icon-bar {
+    background-color: #ff9900;
+}*/
