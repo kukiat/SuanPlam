@@ -14,6 +14,7 @@
         <span class="help-block">{{ $errors->first('txx') }}</span>
       @endif
   </div>
+
   <select class="form-control" name="categoryy">
     <option value="all">All</option>
     <option value="news">News</option>

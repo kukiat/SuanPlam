@@ -8,7 +8,8 @@ class Status extends Model{
     protected $date ='created_at';
     protected $fillable = [
         'topic',
-        'body'
+        'body',
+        'category'
     ];
     public function member_userr(){
       return $this->belongsTo('App\Models\member_user','member_id');

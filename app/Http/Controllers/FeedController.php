@@ -21,6 +21,7 @@ class FeedController extends Controller{
     Auth::user()->statuses()->create([
       'topic' => $request->input('topic'),
       'body' => $request->input('txx'),
+      'category' => $request->input('categoryy'),
     ]);
     return redirect()->route('feed.index')->with('info','โพสเรียบร้อย');
 
