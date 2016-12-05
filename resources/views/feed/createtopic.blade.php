@@ -14,6 +14,14 @@
         <span class="help-block">{{ $errors->first('txx') }}</span>
       @endif
   </div>
+  <select class="form-control" name="categoryy">
+    <option value="all">All</option>
+    <option value="news">News</option>
+    <option value="discussion">Discussion</option>
+    <option value="review">Review</option>
+    <option value="interview">Interview</option>
+    <option value="job">Job</option>
+  </select>
   <div ng-app="myApp">
     <div ng-controller="checkboxCtrl">
       <div class="col-md-3">

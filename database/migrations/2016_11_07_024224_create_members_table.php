@@ -15,6 +15,7 @@ class CreateMembersTable extends Migration{
         $table->string('faculty_name')->nullable();
         $table->string('avatar')->default('default.jpg');
         $table->string('department_name')->nullable();
+        $table->string('type')->default('user');
         $table->string('remember_token')->nullable();
         $table->timestamps();
       });
