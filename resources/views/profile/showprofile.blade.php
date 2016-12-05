@@ -63,32 +63,33 @@
         </div>
       </div>
     </div>
-    <div class="modal fade" id="editpic" role="dialog">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title">แก้ไขรูป</h4>
-          </div>
-          <div class="modal-body">
-            <table class="table table-striped">
-              <form enctype="multipart/form-data" method="POST" action="{{ route('profile.avatar') }}"">
-                <tr>
-                  <th><div  align="center"> <img class="img-circle img-responsive" src="/avatar/{{ $numprofile->avatar }}" style="weight:150px; height:100px; float:left;" /> </div></th>
-                  <th>
-                    <input type="file" name="avatar" id="ddd">
-                  </th>
-                </tr>
-                <tr>
-                  <th><input type="submit" class="btn btn-success" value="ตกลง" id="ggggg"></th>
-                </tr>
-                <input type="hidden" name="_token" value="{{ Session::token() }}">
-                </form>
-            </table>
+    @if((Auth::user()->id)==($numprofile->id))
+      <div class="modal fade" id="editpic" role="dialog">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">แก้ไขรูป</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table table-striped">
+                <form enctype="multipart/form-data" method="POST" action="{{ route('profile.avatar') }}"">
+                  <tr>
+                    <th><div  align="center"> <img class="img-circle img-responsive" src="/avatar/{{ $numprofile->avatar }}" style="weight:150px; height:100px; float:left;" /> </div></th>
+                    <th>
+                      <input type="file" name="avatar" id="ddd">
+                    </th>
+                  </tr>
+                  <tr>
+                    <th><input type="submit" class="btn btn-success" value="ตกลง" id="ggggg"></th>
+                  </tr>
+                  <input type="hidden" name="_token" value="{{ Session::token() }}">
+                  </form>
+              </table>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-
+    @endif
     <div class="modal fade" id="edit" role="dialog">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">

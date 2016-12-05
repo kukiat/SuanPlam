@@ -191,7 +191,6 @@ $(document).ready(function(){
 
 });
 function detail(data){
-
   $('#commentclass').val('');
   $.ajax( "/classroom/ajax/"+ data).done(function(data){
     $('#show').html('<b>'+data.code+'<b>'+'<br>'+'<b >'+data.name+'</b>');
@@ -199,22 +198,7 @@ function detail(data){
     $('#show3').html(data.code);
     $('#show4').html(data.w);
   });
-  // $.ajax({
-  //   type:"POST",
-  //   url:"{{ route('ajax1.ajax') }}",
-  //   data: {id:data,_token: "{{ Session::token() }}"},
-  //   success:function(data){
-  //     $('#show').html('<b>'+(data.yoyo).code+'<b>'+'<br>'+'<b >'+(data.yoyo).name+'</b>');
-  //     $('#show2').html((data.yoyo).name);
-  //     $('#show3').html((data.yoyo).code);
-  //     $('#show4').html((data.yoyo).w);
-  //
-  //   }
-  //
-  // });
-  // return false;
   $.ajax( "/classroom/aja/"+ data).done(function(data){
-    //console.log(data);
     $('.showw1').text(data)
     $('.showw1').empty();
     for(i in data){
@@ -228,7 +212,6 @@ function detail(data){
     }
 
   });
-
 }
 function ccc(data){
   $('#addddd').html(data)
