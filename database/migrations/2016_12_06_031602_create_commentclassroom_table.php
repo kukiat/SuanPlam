@@ -10,6 +10,7 @@ class CreateCommentclassroomTable extends Migration{
           $table->increments('id');
           $table->integer('classmember_comment_id')->unsigned();
           $table->foreign('classmember_comment_id')->references('id')->on('members')->onDelete('cascade');
+          $table->string('classsubject_comment_id');
           $table->text('body');
           $table->timestamps();
       });
