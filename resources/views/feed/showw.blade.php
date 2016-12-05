@@ -16,6 +16,7 @@
           <h6 >{{ $vall->created_at->diffForHumans() }}</h6>
 
         </div>
+        
         <span class="label label-default">ทั่วไป</span>
         <span class="label label-info">ท่องเที่ยว</span><br>
 
@@ -26,7 +27,7 @@
         @endif
       @endforeach
     </div>
-    <div class="col-md-1"><span class="glyphicons glyphicons-duplicate"></span></div>
+    <div class="col-md-1"></span></div>
   </div><hr>
 
 
