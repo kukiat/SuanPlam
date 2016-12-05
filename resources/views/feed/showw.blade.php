@@ -16,7 +16,7 @@
           <h6 >{{ $vall->created_at->diffForHumans() }}</h6>
 
         </div>
-        
+
         <span class="label label-default">ทั่วไป</span>
         <span class="label label-info">ท่องเที่ยว</span><br>
 
@@ -50,9 +50,6 @@
                   @endif
 
                 @endif
-                <!-- <a onclick="showcomment_in_comment({{ $sendd->id }})">
-                    ตอบกลับ
-                </a> -->
               </p>
             </div>
           </div>

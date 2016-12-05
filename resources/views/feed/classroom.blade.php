@@ -35,12 +35,19 @@
         <div style="background-color:#ff7300;margin: 2px 0px 30px 5px;padding-bottom:23px;border: thin solid black; text-align: center;"><h4 id="show"></h4></div>
         <div class="row" style="height:560px;overflow-y:auto; border: thin solid black; padding-left:20px;margin:5px;margin-top:30px;background-color:#F6F7F8;">
           <table class="table" id="showw" >
+
             <tr><h4 id="show2"></h4></tr>
             <tr><h4 id="show3"></h4></tr>
             <tr> <h4 id="show4"></h4></tr>
-            <tr><div class="showw1" ></div></tr>
-            <tr><div id="btnn"></div></tr>
+            <tr><div class="showw1"></div></tr>
 
+
+            @if(Auth::check())
+              <tr><div id="comment_class"></div></tr>
+            @endif
+            <tr><div id="btnn"></div></tr>
+            <tr><div class="show_comment" ></div></tr>
+          </table>
         </div>
       </div>
     </div>
@@ -88,7 +95,21 @@
       });
       return false;
     });
+    $(document).on('submit','#submit_comment_class',function(){
+      var id = $('#show3').text();
+      var body = $('#comment_text_class').val()
 
+      $.ajax({
+        type:"POST",
+        url:"{{ route('comment.class') }}",
+        data:{id:id,body:body,_token: "{{ Session::token() }}"},
+        success:function(data){
+          console.log(data.comment)
+          $('.show_comment').append('name :'+'<br>'+'body :'+(data.comment).body+'<hr>')
+        }
+      })
+      return false;
+    });
   });
 </script>
 <!-- END MODAL -->

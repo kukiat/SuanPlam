@@ -130,6 +130,21 @@ Route::post('/commentt',[
   'uses' => '\App\Http\Controllers\EditController@editcomment',
   'as' => 'comment.edit',
 ]);
+Route::post('/commenttclassroom',[
+  'uses' => '\App\Http\Controllers\ClassroomController@CommentClassroom',
+  'as' => 'comment.class',
+]);
+
+
+
+
+
+
+
+
+
+
+
 Route::get('/postja',[
   'uses' => '\App\Http\Controllers\HomeController@postja',
   'as' => 'jajaja',

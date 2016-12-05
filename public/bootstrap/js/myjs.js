@@ -14,6 +14,8 @@ $(document).ready(function(){
     return false;
   });
   $('#clear').click(function(e){
+    $('.show_comment').empty();
+    $('#comment_class').empty();
     $('.showw1').empty();
     $('#show2').empty();
     $('#show3').empty();
@@ -34,6 +36,8 @@ $(document).ready(function(){
     });
   });
   $('select').on('change', function(e) {
+    $('.show_comment').empty();
+    $('#comment_class').empty();
     $('#search').val('');
     $('.showw1').empty();
     $('#show2').empty();
@@ -138,6 +142,7 @@ $(document).ready(function(){
       }
     });
   });
+
   $('#search').on('input',function(){
 
     var xx = $('.oo').val();
@@ -149,6 +154,8 @@ $(document).ready(function(){
       console.log('thainaja')
       cha='+';
     }
+    $('.show_comment').empty();
+    $('#comment_class').empty();
     $('.showw1').empty();
     $('#show2').empty();
     $('#show3').empty();
@@ -191,14 +198,24 @@ $(document).ready(function(){
 
 });
 function detail(data){
+
   $('#commentclass').val('');
   $.ajax( "/classroom/ajax/"+ data).done(function(data){
-    $('#show').html('<b>'+data.code+'<b>'+'<br>'+'<b >'+data.name+'</b>');
-    $('#show2').html(data.name);
-    $('#show3').html(data.code);
-    $('#show4').html(data.w);
+    $('#show').html('<b>'+(data.yoyo).code+'<b>'+'<br>'+'<b >'+(data.yoyo).name+'</b>');
+    $('#show2').html((data.yoyo).name);
+    $('#show3').html((data.yoyo).code);
+    $('#show4').html((data.yoyo).w);
+    
+    console.log(data.comment)
+    $('.show_comment').text(data.comment)
+    $('.show_comment').empty();
+    for(i in data.comment){
+      $('.show_comment').append('name :'+'<br>'+'body :'+data.comment[i].body+'<hr>')
+    }
   });
+
   $.ajax( "/classroom/aja/"+ data).done(function(data){
+
     $('.showw1').text(data)
     $('.showw1').empty();
     for(i in data){
@@ -211,6 +228,11 @@ function detail(data){
 
     }
 
+    $('#comment_class').html('<form id="submit_comment_class" method="POST">'+
+      '<textarea name="comment_text_class" id="comment_text_class" rows="3" cols="80">'+'</textarea>'+'<br>'+
+      '<input type="submit" class="btn btn-success" value="ตกลง" >'+
+      '<input type="hidden" name="_token" value="{{ Session::token() }}">'+
+    '</form>');
   });
 }
 function ccc(data){
