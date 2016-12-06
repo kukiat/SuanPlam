@@ -89,11 +89,6 @@ Route::post('/comment/{blog}',[
   'middleware' => ['auth'],
 ]);
 
-// Route::get('/ddd/{xxxx}',[
-//   'uses' => '\App\Http\Controllers\FeedController@ddd',
-//
-//
-// ]);
 
 
 Route::get('/classroom',[
@@ -152,9 +147,4 @@ Route::get('/postja',[
 Route::post('/postjaaaa',[
   'uses' => '\App\Http\Controllers\HomeController@postjaa',
   'as' => 'jajajaa',
-]);
-
-Route::post('/ok',[
-  'uses' => '\App\Http\Controllers\ClassroomController@xx',
-  'as' => 'ggggggge',
 ]);

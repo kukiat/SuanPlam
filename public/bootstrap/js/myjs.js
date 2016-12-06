@@ -205,12 +205,13 @@ function detail(data){
     $('#show2').html((data.yoyo).name);
     $('#show3').html((data.yoyo).code);
     $('#show4').html((data.yoyo).w);
-    
+
     console.log(data.comment)
     $('.show_comment').text(data.comment)
     $('.show_comment').empty();
+    
     for(i in data.comment){
-      $('.show_comment').append('name :'+'<br>'+'body :'+data.comment[i].body+'<hr>')
+      $('.show_comment').append('name : '+data.comment[i].classmember_comment_id+'<br>'+'body :'+data.comment[i].body+'<hr>')
     }
   });
 

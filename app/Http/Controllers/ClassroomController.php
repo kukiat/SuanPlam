@@ -22,6 +22,9 @@ class ClassroomController extends Controller{
       $yoyo = subject::where('code','=',$sub)->first();
       $comment = commentinclassroom::where('classsubject_comment_id','=',$sub)->get();
 
+
+      // $member_user = member_user::where('id','=',$comment->classmember_comment_id)->get();
+
       return response()->json(array('yoyo'=>$yoyo,'comment'=>$comment));
     }
     public function xxxx($su){  //detail 2
@@ -43,13 +46,8 @@ class ClassroomController extends Controller{
       return $sss;
     }
 
-    public function xx(Request $request){
-      $x = $request->input('x');
-      $id = $request->input('id');
-      $section = $request->input('section');
-      return response()->json(array('x'=>$x,'id'=>$id,'section'=>$section));
-    }
-    
+  
+
     public function CommentClassroom(Request $request){
       $code = $request->input('id');
       $body = $request->input('body');
@@ -60,7 +58,8 @@ class ClassroomController extends Controller{
       ]);
       $create->save();
       $comment = commentinclassroom::where('id','=',$create->id)->first();
-      return response()->json(array('comment'=>$comment));
+      $member_user = member_user::where('id','=',$create->classmember_comment_id)->first();
+      return response()->json(array('comment'=>$comment,'member_user'=>$member_user));
     }
 
 

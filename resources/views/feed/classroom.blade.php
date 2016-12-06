@@ -64,12 +64,7 @@
           <h2 id="sho">วิชา</h2>
           <div id="addddd"></div>
           <div id="comm"></div>
-          <form method="POST" id="fff" action="{{ route('ggggggge') }}" >
-            <textarea id="commentclass" class="form-control" rows="3"></textarea><br>
-
-            <button class="btn btn-success" type="submit">ตกลง</button>
-            <input type="hidden" name="_token" value="{{ Session::token() }}">
-          </form>
+          
         </div>
 
       </div>
@@ -79,22 +74,7 @@
 <script>
   $(document).ready(function(){
 
-    $('#fff').submit(function(){
-      var id = $('#addddd').text()
-      var x = $('#commentclass').val()
-      var section = $('#section_number').text();
 
-      console.log(id)
-      $.ajax({
-        type:"POST",
-        url:"{{ route('ggggggge') }}",
-        data:{x:x,id:id,section:section,_token: "{{ Session::token() }}"},
-        success:function(data){
-          $('#comm').append('<h1>'+data.id+data.section+'</h1>'+'<h1>'+data.x+'</h1>')
-        }
-      });
-      return false;
-    });
     $(document).on('submit','#submit_comment_class',function(){
       var id = $('#show3').text();
       var body = $('#comment_text_class').val()
@@ -105,7 +85,7 @@
         data:{id:id,body:body,_token: "{{ Session::token() }}"},
         success:function(data){
           console.log(data.comment)
-          $('.show_comment').append('name :'+'<br>'+'body :'+(data.comment).body+'<hr>')
+           $('.show_comment').append('name :'+(data.member_user).id+'<br>'+'body :'+(data.comment).body+'<hr>')
         }
       })
       return false;
