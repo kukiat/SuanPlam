@@ -35,7 +35,7 @@
       </div>
       <div class="col-md-9">
         <p ng-repeat="selectedName in selected">
-          <span class="label label-primary">@{{selectedName.name}}</span>
+          <span class="label label-primary bob">@{{selectedName.name}}</span>
         </p>
       </div>
 
@@ -43,7 +43,7 @@
 
   </div>
 
-
+  <input type="button" name="" value="fffff" id="bb">
   <input type="hidden" name="_token" value="{{ Session::token() }}">
 </form>
 
@@ -55,6 +55,9 @@
           maxHeight: null,
           focus: true
         });
+        $('#bb').click(function(){
+          alert($('.bob').text())
+        })
     });
   var app = angular.module("myApp",[])
   app.controller("checkboxCtrl",function($scope){

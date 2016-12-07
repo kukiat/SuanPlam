@@ -144,5 +144,34 @@
   <div class="col-md-1">
     <a class="btn btn-primary" href="{{ route('create.topic')}}">Create</a>
   </div>
+  @if(Auth::check())
+    @if((Auth::user()->type) == 'admin')
+      <div class="col-md-1">
+        เพิ่มTAGสำหรับADMIN
+        <form method="post" id="addcategory">
+          <input type="text" id="j" name="namecategory" class="form-control">
+          <button type="submit" >ตกลง</button>
+          <input type="hidden" name="_token" value="{{ Session::token() }}">
+        </form>
+      </div>
+      @endif
+    @endif
 </div>
+<script>
+  $(document).ready(function(){
+    $('#addcategory').submit(function(){
+      var j = $('#j').val();
+      $.ajax({
+        url:"{{ route('addcageory') }}",
+        type:"POST",
+        data:{j:j,_token:  "{{ Session::token() }}"},
+        success:function(data){
+          alert(data)
+          $('#j').val('');
+        }
+      });
+      return false;
+    })
+  })
+</script>
 @stop

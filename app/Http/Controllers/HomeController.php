@@ -35,6 +35,12 @@ class HomeController extends Controller{
   public function testt(){
     return view('test');
   }
+  public function posttestt(Request $request){
+      $qq = $request->input('qq');
+      $qqq = $request->input('qqq');
+      return response()->json(array('qq'=>$qq,'qqq'=>$qqq));
+
+  }
 
 
   public function postja(){
@@ -47,6 +53,7 @@ class HomeController extends Controller{
   public function getUploadForm() {
 		return view('gg');
 	}
+
 
 
 

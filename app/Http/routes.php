@@ -132,12 +132,21 @@ Route::post('/commenttclassroom',[
 
 
 
+Route::post('/addcageory',[
+  'uses' => '\App\Http\Controllers\FeedController@addcageory',
+  'as' => 'addcageory',
+]);
 
 
 
-
-
-
+Route::get('/test',[
+  'uses' => '\App\Http\Controllers\HomeController@testt',
+  'as' => 'dwdjajaja',
+]);
+Route::post('/posttest',[
+  'uses' => '\App\Http\Controllers\HomeController@posttestt',
+  'as' => 'dposttest',
+]);
 
 
 Route::get('/postja',[

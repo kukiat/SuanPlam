@@ -5,6 +5,7 @@ use Auth;
 use App\Models\member_user;
 use App\Models\Status;
 use App\Models\comment;
+use App\Models\tag;
 use Validator;
 use App\Http\Requests\requestcomment;
 
@@ -81,12 +82,14 @@ class FeedController extends Controller{
   public function createtopic(){
     return view('feed.createtopic');
   }
+  public function addcageory(Request $request){
+
+      $tagg = new tag;
+      $tagg->tag_name = $request->input('j');
+      $tagg->save();
+      return 'oh';
+  }
 
 
-  // public function commentbb(){
-  //   $send = comment::get();
-  //   return view('feed.showw')->with('send', $send);
-  //
-  // }
 
 }

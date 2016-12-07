@@ -16,8 +16,9 @@
           <h6 >{{ $vall->created_at->diffForHumans() }}</h6>
 
         </div>
+        <span class="glyphicon glyphicon-duplicate"></span><span class="label label-default">{{$vall->category}}</span>
+        <span class="glyphicon glyphicon-tags"></span>
 
-        <span class="label label-default">ทั่วไป</span>
         <span class="label label-info">ท่องเที่ยว</span><br>
 
         @if(Auth::check())

@@ -32,7 +32,8 @@ class ClassroomController extends Controller{
       return $yoyo;
     }
     public function xxxxx($s){ //clearsearch
-      $y = subject::where('name','LIKE','%'.$s.'%')->orWhere('code','LIKE','%'.$s.'%')->get();
+      // $y = subject::where('name','LIKE','%'.$s.'%')->orWhere('code','LIKE',$s.'%')->get();
+      $y = subject::Where('code','LIKE',$s.'%')->get();
       return $y;
     }
     public function fill($dd,$cc=null){    //search from input
@@ -46,7 +47,7 @@ class ClassroomController extends Controller{
       return $sss;
     }
 
-  
+
 
     public function CommentClassroom(Request $request){
       $code = $request->input('id');

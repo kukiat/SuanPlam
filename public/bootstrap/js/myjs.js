@@ -1,18 +1,9 @@
 $(document).ready(function(){
+
   $('#alertt').fadeIn(500).delay(2000).fadeOut(500);
-  $('#testjaa').submit(function(){
-    var x = $('#ooo').text()
-    alert(x)
-    $.ajax({
-      type:"POST",
-      url:"{{ route('jajajaa') }}",
-      data:{x:x,_token:  "{{ Session::token() }}"},
-      success:function(data){
-        alert(data)
-      }
-    });
-    return false;
-  });
+
+    
+
   $('#clear').click(function(e){
     $('.show_comment').empty();
     $('#comment_class').empty();
@@ -22,12 +13,13 @@ $(document).ready(function(){
     $('#show4').empty();
     $('#show').empty();
     var cha = $('.oo').val();
+    console.log('cha='+cha);
     $('#search').val('');
     if(cha==null)
       cha=0;
     console.log('delete '+cha);
     $.ajax("/classroom/aj/"+cha).done(function(data){
-      console.log(data);
+
       $('.shower').text(data);
       $('.shower').empty();
       for(i in data){
@@ -150,10 +142,16 @@ $(document).ready(function(){
     var cha = $('#search').val();
     var pattern = /^[a-zA-Z0-9]+$/;
     var result = pattern.test(cha);
-    if (!result){
-      console.log('thainaja')
-      cha='+';
+    if(cha==''){
+      console.log('nonee')
+      cha='';
     }
+
+    else if(!result){
+      console.log('thainaja')
+      cha='ffffffffffff';
+    }
+
     $('.show_comment').empty();
     $('#comment_class').empty();
     $('.showw1').empty();
@@ -164,14 +162,9 @@ $(document).ready(function(){
     if(xx==null)  //เช็คให้ค่าเปน 0 เพราะ เราต้องเอา 0 จาก select มาใช้
       xx=0;
     console.log('value '+xx);
-
-
-
-
-      if(xx==0){  //กรองอันแรก
+    console.log('keyword '+cha);
+    if(xx==0){  //กรองอันแรก
         console.log('yes')
-
-
         $.ajax( '/classroom/fill/'+ vv+'/'+cha).done(function(data){
           //console.log(data);
           $('.shower').text(data);
@@ -180,7 +173,7 @@ $(document).ready(function(){
             $('.shower').append('<div class="list-group-item bb" onclick="detail(\'' + data[i].code+ '\')"style="margin-top:7px;margin-left:8px;cursor:hand;font-size:15px;">'+data[i].code+'<br>'+data[i].name+'</div>')
           }
         });
-        }
+      }
         else{  //กรองอันแรกและอันสอง
           console.log('no')
           $.ajax( '/classroom/fill/'+ xx+'/'+cha).done(function(data){
@@ -192,8 +185,7 @@ $(document).ready(function(){
             }
           });
         }
-
-  });
+    });
 
 
 });
@@ -209,7 +201,7 @@ function detail(data){
     console.log(data.comment)
     $('.show_comment').text(data.comment)
     $('.show_comment').empty();
-    
+
     for(i in data.comment){
       $('.show_comment').append('name : '+data.comment[i].classmember_comment_id+'<br>'+'body :'+data.comment[i].body+'<hr>')
     }
