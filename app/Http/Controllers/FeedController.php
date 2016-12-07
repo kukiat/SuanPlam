@@ -6,6 +6,7 @@ use App\Models\member_user;
 use App\Models\Status;
 use App\Models\comment;
 use App\Models\tag;
+use App\Models\posttag;
 use Validator;
 use App\Http\Requests\requestcomment;
 
@@ -15,6 +16,9 @@ use Illuminate\Http\Request;
 class FeedController extends Controller{
 
   public function postStatus(Request $request){
+    //  dd($request->tag_select[2]);
+    // dd(count($request->tag_select));
+
     $this->validate($request, [
       'topic' => 'required|max:100',
       'txx' => 'required|max:5000',
@@ -24,9 +28,19 @@ class FeedController extends Controller{
       'body' => $request->input('txx'),
       'category' => $request->input('categoryy'),
     ]);
+    $postauth = Status::where('member_id','=',Auth::user()->id)->orderBy('created_at', 'desc')->first();
+
+    for ($x = 0; $x < count($request->tag_select); $x++){
+      $posttag = new posttag;
+      $posttag->post_id = $postauth->id;
+      $posttag->tag_id = $request->tag_select[$x];
+      $posttag->save();
+    }
+
     return redirect()->route('feed.index')->with('info','โพสเรียบร้อย');
 
   }
+
   public function Blog($blog){
     $val = Status::where('id', '=', $blog)->get();
     $send = comment::where('blog_comment_id', '=', $blog)->get();
@@ -80,14 +94,15 @@ class FeedController extends Controller{
     // }
   }
   public function createtopic(){
-    return view('feed.createtopic');
+    $tag = tag::get();
+    return view('feed.createtopic')->with('tag',$tag);
   }
   public function addcageory(Request $request){
 
       $tagg = new tag;
       $tagg->tag_name = $request->input('j');
       $tagg->save();
-      return 'oh';
+      return 'ok';
   }
 
 

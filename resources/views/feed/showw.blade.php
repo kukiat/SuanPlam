@@ -79,7 +79,7 @@
       <div class="col-md-8"></div>
     </div>
   </div><hr>
-
+  
 </div>
 <!-- modal edit -->
 <div id="show_modal_edit"></div>

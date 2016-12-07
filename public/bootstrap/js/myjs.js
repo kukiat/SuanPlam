@@ -2,7 +2,7 @@ $(document).ready(function(){
 
   $('#alertt').fadeIn(500).delay(2000).fadeOut(500);
 
-    
+
 
   $('#clear').click(function(e){
     $('.show_comment').empty();
@@ -27,7 +27,8 @@ $(document).ready(function(){
       }
     });
   });
-  $('select').on('change', function(e) {
+  $('.select').on('change', function(e) {
+
     $('.show_comment').empty();
     $('#comment_class').empty();
     $('#search').val('');
@@ -41,8 +42,8 @@ $(document).ready(function(){
     var xx = e.target.value;
     console.log('number '+e.target.value);
     if(xx==0)  //เช็คตอนย้อนกลับไปALL ตอนเลือกคณะแล้ว
-      xx = $('select').val();
-    if($('select').val()==0)  //แช็คให้้เลือกภาคเด้งไปเริ่มต้น
+      xx = $('.select').val();
+    if($('.select').val()==0)  //แช็คให้้เลือกภาคเด้งไปเริ่มต้น
       $('.oo').empty();
     $.ajax( '/classroom/fill/'+ xx+'/'+chaa).done(function(data){
       //console.log(data);
@@ -138,7 +139,7 @@ $(document).ready(function(){
   $('#search').on('input',function(){
 
     var xx = $('.oo').val();
-    var vv = $('select').val();
+    var vv = $('.select').val();
     var cha = $('#search').val();
     var pattern = /^[a-zA-Z0-9]+$/;
     var result = pattern.test(cha);

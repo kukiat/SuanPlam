@@ -9,9 +9,9 @@ class CreateCommentreplyTable extends Migration{
       Schema::create('commentreply',function(Blueprint $table){
         $table->increments('id');
         $table->integer('member_comment_id')->unsigned();
-        $table->foreign('member_comment_id')->references('id')->on('members');
+        $table->foreign('member_comment_id')->references('id')->on('members')->onDelete('cascade');;
         $table->integer('blog_comment_id')->unsigned();
-        $table->foreign('blog_comment_id')->references('id')->on('postblog');
+        $table->foreign('blog_comment_id')->references('id')->on('postblog')->onDelete('cascade');;
         $table->text('body');
         $table->timestamps();
       });

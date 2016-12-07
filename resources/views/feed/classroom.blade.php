@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col-md-4 box">
         <div class="btn-group">
-          <select class="dropdown-department" id="select">
+          <select class="dropdown-department select" id="select">
             <option value="0">All</option>
             <option value="01">คณะวิศวกรรมศาสตร์</option>
             <option value="02">คณะครุศาสตร์อุตสาหกรรม</option>
@@ -15,7 +15,7 @@
             <option value="07">คณะเทคโนโลยีสารสนเทศ</option>
             <option value="08">คณะศิลปศาสตร์ประยุกต์</option>
           </select><br>
-          <select class="dropdown-department oo">
+          <select class="dropdown-department oo select">
             <option value="0">All</option>
           </select><br>
           <input id="search" type="text" class="search" placeholder="Search">
@@ -64,7 +64,7 @@
           <h2 id="sho">วิชา</h2>
           <div id="addddd"></div>
           <div id="comm"></div>
-          
+
         </div>
 
       </div>

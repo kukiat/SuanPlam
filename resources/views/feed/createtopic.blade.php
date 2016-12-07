@@ -23,7 +23,12 @@
     <option value="interview">Interview</option>
     <option value="job">Job</option>
   </select>
-  <div ng-app="myApp">
+  <select class="form-control select2-multi" name="tag_select[]" multiple="multiple">
+    @foreach($tag as $tag)
+      <option value="{{ $tag->id}}">{{ $tag->tag_name}}</option>
+    @endforeach
+  </select>
+  <!-- <div ng-app="myApp">
     <div ng-controller="checkboxCtrl">
       <div class="col-md-3">
         <div ng-repeat="user in member" class="checkbox">
@@ -41,23 +46,24 @@
 
     </div>
 
-  </div>
+  </div> -->
 
-  <input type="button" name="" value="fffff" id="bb">
+  <div class="form-group">
+    <button type="submit" class="btn btn-success">ตกลง</button>
+  </div>
   <input type="hidden" name="_token" value="{{ Session::token() }}">
 </form>
 
 <script>
   $(document).ready(function() {
+      $('.select2-multi').select2();
         $('#summer').summernote({
           height: 300,
           minHeight: null,
           maxHeight: null,
           focus: true
         });
-        $('#bb').click(function(){
-          alert($('.bob').text())
-        })
+
     });
   var app = angular.module("myApp",[])
   app.controller("checkboxCtrl",function($scope){

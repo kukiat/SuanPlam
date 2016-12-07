@@ -11,6 +11,7 @@ return array(
     'CreateMembersTable' => $baseDir . '/database/migrations/2016_11_07_024224_create_members_table.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
     'CreatePostblogTable' => $baseDir . '/database/migrations/2016_11_07_024249_create_postblog_table.php',
+    'CreatePosttagTable' => $baseDir . '/database/migrations/2016_12_08_033046_create_posttag_table.php',
     'CreateTagTable' => $baseDir . '/database/migrations/2016_12_05_231448_create_tag_table.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2014_10_12_000000_create_users_table.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',

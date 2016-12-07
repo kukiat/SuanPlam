@@ -20,5 +20,8 @@ class Status extends Model{
    public function members(){
     return $this->belongsToMany('App\Models\member_user');
    }
+  //  public function tag(){
+  //   	return $this->belongsToMany('App\Models\tag');
+  //  }
 
 }
