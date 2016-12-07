@@ -16,7 +16,7 @@
   </div>
 
   <select class="form-control" name="categoryy">
-    <option value="all">All</option>
+    <!-- <option value="all">All</option> -->
     <option value="news">News</option>
     <option value="discussion">Discussion</option>
     <option value="review">Review</option>

@@ -10,6 +10,8 @@ class posttag extends Model{
       'post_id',
       'tag_id',
     ];
-
+    public function tags(){
+      return $this->belongsTo('App\Models\tag','tag_id');
+    }
 
 }

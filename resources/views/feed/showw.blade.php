@@ -18,9 +18,9 @@
         </div>
         <span class="glyphicon glyphicon-duplicate"></span><span class="label label-default">{{$vall->category}}</span>
         <span class="glyphicon glyphicon-tags"></span>
-
-        <span class="label label-info">ท่องเที่ยว</span><br>
-
+        @foreach($posttag as $posttag)
+          <span class="label label-info">{{ $posttag->tags->tag_name }}</span>
+        @endforeach
         @if(Auth::check())
           @if((Auth::user()->id)==($vall->member_id))
             <a href="#">แก้ไข</a>
@@ -79,7 +79,7 @@
       <div class="col-md-8"></div>
     </div>
   </div><hr>
-  
+
 </div>
 <!-- modal edit -->
 <div id="show_modal_edit"></div>

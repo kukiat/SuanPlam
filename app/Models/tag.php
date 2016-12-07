@@ -11,5 +11,8 @@ class tag extends Model{
     // public function post(){
     // 	return $this->belongsToMany('App\Models\Status');
     // }
+    public function posttags(){
+      return $this->hasMany('App\Models\posttag','tag_id');
+    }
 
 }

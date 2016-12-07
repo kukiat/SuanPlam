@@ -44,13 +44,14 @@ class FeedController extends Controller{
   public function Blog($blog){
     $val = Status::where('id', '=', $blog)->get();
     $send = comment::where('blog_comment_id', '=', $blog)->get();
-
+    $posttag = posttag::where('post_id', '=', $blog)->get();
     //เช็ค if มี blog นั้นจริงๆหรทอป่าว แต่ยังไม่ทำ
 
       return view('feed.showw')
       ->with('val', $val)
       ->with('blog', $blog)
-      ->with('send', $send);
+      ->with('send', $send)
+      ->with('posttag',$posttag);
 
 
 
