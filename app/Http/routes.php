@@ -129,7 +129,10 @@ Route::post('/commenttclassroom',[
   'uses' => '\App\Http\Controllers\ClassroomController@CommentClassroom',
   'as' => 'comment.class',
 ]);
-
+Route::get('/tag/{tag_id}',[
+  'uses' => '\App\Http\Controllers\FeedController@getTag',
+  'as' => 'getTag',
+]);
 
 
 Route::post('/addcageory',[

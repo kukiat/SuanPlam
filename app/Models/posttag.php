@@ -13,5 +13,8 @@ class posttag extends Model{
     public function tags(){
       return $this->belongsTo('App\Models\tag','tag_id');
     }
+    public function posts(){
+      return $this->belongsTo('App\Models\Status','post_id');
+    }
 
 }

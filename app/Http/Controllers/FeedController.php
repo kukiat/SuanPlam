@@ -105,6 +105,12 @@ class FeedController extends Controller{
       $tagg->save();
       return 'ok';
   }
+  public function getTag($tag_id){
+    $posttag = posttag::where('tag_id','=',$tag_id)->get();
+    $posttags = posttag::where('tag_id','=',$tag_id)->first();
+    
+    return view('tag.tagshow')->with('posttag',$posttag)->with('posttags',$posttags);
+  }
 
 
 

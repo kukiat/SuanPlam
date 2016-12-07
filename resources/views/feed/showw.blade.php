@@ -19,7 +19,7 @@
         <span class="glyphicon glyphicon-duplicate"></span><span class="label label-default">{{$vall->category}}</span>
         <span class="glyphicon glyphicon-tags"></span>
         @foreach($posttag as $posttag)
-          <span class="label label-info">{{ $posttag->tags->tag_name }}</span>
+          <a href="{{ route('getTag',['tag_id' => $posttag->tag_id])}}"><span class="label label-info">{{ $posttag->tags->tag_name }}</span></a>
         @endforeach
         @if(Auth::check())
           @if((Auth::user()->id)==($vall->member_id))
