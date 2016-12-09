@@ -112,10 +112,6 @@ Route::get('/classroom/aj/{cha}',[
 	'uses' => '\App\Http\Controllers\ClassroomController@xxxxx',
   'as' => 'aj',
 ]);
-
-
-
-
 Route::get('/classroom/fill/{dd}/{cc?}',[
 	'uses' => '\App\Http\Controllers\ClassroomController@fill',
   'as' => 'fill',
@@ -139,7 +135,10 @@ Route::post('/addcageory',[
   'uses' => '\App\Http\Controllers\FeedController@addcageory',
   'as' => 'addcageory',
 ]);
-
+Route::post('/replyinreply',[
+  'uses' => '\App\Http\Controllers\FeedController@replyinreplyy',
+  'as' => 'replyinreply',
+]);
 
 
 Route::get('/test',[

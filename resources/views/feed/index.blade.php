@@ -17,16 +17,16 @@
         <div class="row" style="height:600px;overflow-y:auto; border: thin solid black; margin:5px">
           @foreach($show as $showw)
           <div class="media" style="border-radius:10px;border: 1px;margin:10px 5px 0px 20px;">
-            <a class="media-left" href="{{ route('profile.profile',['num'=>$showw->member_id])}}">
-              <img class="media-object img-circle" src="/avatar/{{ $showw->member_userr->avatar}}" alt="Generic placeholder image" style="weight:50px; height:70px;">
+            <a class="media-left" href="{{ route('profile.profile',['num'=>$showw->member_id]) }}">
+              <img class="media-object img-circle" src="/avatar/{{ $showw->member_userr->avatar }}" alt="Generic placeholder image" style="weight:50px; height:70px;">
             </a>
             <div class="media-body">
               <h4 class="media-heading">
                 <a href="{{route('blog.blog',['blog' => $showw->id])}}" class="list-group-item" target="_blank">
-                  <h4 class="list-group-item-heading">{{ $showw->topic}}</h4>
+                  <h4 class="list-group-item-heading">{{ $showw->topic }}</h4>
                 </a></h4>
                 <span style="padding-left:15px;">News by </span>
-                <a style="color: #333333;font-weight:bold;"href="{{ route('profile.profile',['num'=>$showw->member_id])}}">{{$showw->member_userr->username}}</a>
+                <a style="color: #333333;font-weight:bold;"href="{{ route('profile.profile',['num'=>$showw->member_id])}}">{{ $showw->member_userr->username }}</a>
             </div>
           </div>
           @endforeach
@@ -38,12 +38,12 @@
         <div class="row" style="height:600px;overflow-y:auto; border: thin solid black; margin:5px">
           @foreach($discussion as $discuss)
           <div class="media" style="border-radius:10px;border: 1px;margin:10px 5px 0px 20px;">
-            <a class="media-left" href="{{ route('profile.profile',['num'=>$discuss->member_id])}}">
+            <a class="media-left" href="{{ route('profile.profile',['num'=>$discuss->member_id]) }}">
               <img class="media-object img-circle" src="/avatar/{{ $discuss->member_userr->avatar}}" alt="Generic placeholder image" style="weight:50px; height:70px;">
             </a>
             <div class="media-body">
               <h4 class="media-heading">
-                <a href="{{route('blog.blog',['blog' => $discuss->id])}}" class="list-group-item" target="_blank">
+                <a href="{{route('blog.blog',['blog' => $discuss->id]) }}" class="list-group-item" target="_blank">
                   <h4 class="list-group-item-heading">{{ $discuss->topic}}</h4>
                 </a></h4>
                 <span style="padding-left:15px;">News by </span>
@@ -60,7 +60,7 @@
           @foreach($review as $review)
           <div class="media" style="border-radius:10px;border: 1px;margin:10px 5px 0px 20px;">
             <a class="media-left" href="{{ route('profile.profile',['num'=>$review->member_id])}}">
-              <img class="media-object img-circle" src="/avatar/{{ $review->member_userr->avatar}}" alt="Generic placeholder image" style="weight:50px; height:70px;">
+              <img class="media-object img-circle" src="/avatar/{{ $review->member_userr->avatar }}" alt="Generic placeholder image" style="weight:50px; height:70px;">
             </a>
             <div class="media-body">
               <h4 class="media-heading">

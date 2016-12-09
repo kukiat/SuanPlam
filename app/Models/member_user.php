@@ -52,5 +52,11 @@ class member_user extends Model implements AuthenticatableContract{
     public function commentclass(){
      return $this->hasMany('App\Models\commentinclassroom','classmember_comment_id');
     }
+    public function commentcomment(){
+     return $this->hasMany('App\Models\commentcomment','member_commentincomment_id');
+    }
+    // public function commedcomment(){
+    //  return $this->hasMany('App\Models\commentcomment','member_comment_id');
+    // }
 
 }

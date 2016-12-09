@@ -23,6 +23,9 @@ class Status extends Model{
    public function posttags(){
      return $this->hasMany('App\Models\posttag','post_id');
    }
+   public function comment(){
+     return $this->hasMany('App\Models\comment','blog_comment_id');
+   }
   //  public function tag(){
   //   	return $this->belongsToMany('App\Models\tag');
   //  }

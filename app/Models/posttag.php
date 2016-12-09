@@ -16,5 +16,5 @@ class posttag extends Model{
     public function posts(){
       return $this->belongsTo('App\Models\Status','post_id');
     }
-
+    
 }

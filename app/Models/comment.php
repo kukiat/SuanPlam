@@ -17,5 +17,10 @@ class comment extends Model{
     public function userrrr(){
       return $this->belongsTo('App\Models\member_user','member_comment_id');
     }
-
+    public function statused(){
+      return $this->belongsTo('App\Models\Status','blog_comment_id');
+    }
+    // public function commentcomment(){
+    //   return $this->hasMany('App\Models\commentcomment','comment_commentincomment_id');
+    // }
 }
