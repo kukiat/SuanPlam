@@ -6,7 +6,7 @@
     <ul class="nav navbar-nav">
       <li><a href="{{ route('feed.index') }}">Feed</a></li>
       <li><a href="{{ route('classroom.classroom') }}">Classroom</a></li>
-      <li><a href="#">club</a></li>
+      <li><a href="{{ route('mainclub') }}">club</a></li>
 
     </ul>
     <div class="nav navbar navbar-right">

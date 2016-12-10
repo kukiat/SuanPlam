@@ -156,6 +156,7 @@
       </div>
       @endif
     @endif
+    
 </div>
 <script>
   $(document).ready(function(){
@@ -172,6 +173,7 @@
       });
       return false;
     })
+
   })
 </script>
 @stop

@@ -22,24 +22,14 @@ class member_user extends Model implements AuthenticatableContract{
         'password',
         'remember_token',
     ];
-    // public function getName(){
-    //   if($this->first_name && $this->last_name){
-    //     return "{$this->first_name} {$this->last_name}";
-    //   }
-    //   if($this->first_name){
-    //     return $this->first_name;
-    //   }
-    //   return null;
-    // }
+    
     public function getKey(){
       return "{$this->id}";
     }
     public function getNameOrUsername(){
       return "$this->username";
     }
-    // public function getFirstNameOrUsername(){
-    //   return $this->firstname ?: $this->username;
-    // }
+
     public function statuses(){
       return $this->hasMany('App\Models\Status','member_id');
     }
@@ -55,8 +45,6 @@ class member_user extends Model implements AuthenticatableContract{
     public function commentcomment(){
      return $this->hasMany('App\Models\commentcomment','member_commentincomment_id');
     }
-    // public function commedcomment(){
-    //  return $this->hasMany('App\Models\commentcomment','member_comment_id');
-    // }
+
 
 }

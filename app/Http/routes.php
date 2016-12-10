@@ -145,6 +145,10 @@ Route::get('/test',[
   'uses' => '\App\Http\Controllers\HomeController@testt',
   'as' => 'dwdjajaja',
 ]);
+Route::get('/club',[
+  'uses' => '\App\Http\Controllers\ClubController@getmain',
+  'as' => 'mainclub',
+]);
 Route::post('/posttest',[
   'uses' => '\App\Http\Controllers\HomeController@posttestt',
   'as' => 'dposttest',
@@ -158,4 +162,26 @@ Route::get('/postja',[
 Route::post('/postjaaaa',[
   'uses' => '\App\Http\Controllers\HomeController@postjaa',
   'as' => 'jajajaa',
+]);
+
+Route::post('/postaddname',[
+  'uses' => '\App\Http\Controllers\ClubController@postaddname',
+  'as' => 'postaddname',
+]);
+Route::post('/postrequest',[
+  'uses' => '\App\Http\Controllers\ClubController@postrequestuser',
+  'as' => 'postrequest.postrequest',
+]);
+
+Route::get('/club/{club}',[
+  'uses' => '\App\Http\Controllers\ClubController@pageeee',
+  'as' => 'getpage.getpage',
+]);
+Route::post('/postrequestsubmit',[
+  'uses' => '\App\Http\Controllers\ClubController@postrequestsubmit',
+  'as' => 'postrequestsubmit',
+]);
+Route::post('/postrequestreject',[
+  'uses' => '\App\Http\Controllers\ClubController@postrequestreject',
+  'as' => 'postrequestreject',
 ]);

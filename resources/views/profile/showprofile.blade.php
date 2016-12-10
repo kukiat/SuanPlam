@@ -10,8 +10,14 @@
         <div class="row">
           <div class="col-md-3 col-lg-3 " align="center">
             <a href="" data-toggle="modal" data-target="#editpic"><img class="img-circle img-responsive" src="/avatar/{{ $numprofile->avatar }}" style="weight:100px; height:100px; float:left;"/></a>
+
           </div>
-            <div class=" col-md-9 col-lg-9 ">
+            <div class="col-md-9 col-lg-9 ">
+              @if(Auth::check())
+                @if(Auth::user()->type == 'user')
+                  <input type="button" value="ขอเปิดชมรม" class="btn btn-success" data-toggle="modal" data-target="#openclub">
+                @endif
+              @endif
               <table class="table table-user-information">
                 <tbody>
                   <tr>
@@ -41,8 +47,28 @@
               @endif
             </div>
           </div>
+
         </div>
+
       </div>
+
+    </div>
+    <div class="col-md-3">
+      @if(Auth::check())
+        @if(Auth::user()->type == 'admin')
+          @foreach($clubrequest as $clubreques)
+          <div id="{{ $clubreques->id }}">
+            ชื่อ : {{ $clubreques->id }}
+            ชื่อชมรม : {{ $clubreques->club_name }}
+            รายละเอียด : {{ $clubreques->detail }}
+            <button type="button" onclick="requestsubmit('{{ $clubreques->id }}')">ตกลง</button>
+            <button type="button" onclick="requestreject('{{ $clubreques->id }}')">ไม่อนุมัต</button>
+            <br><hr>
+          </div>
+          @endforeach
+        @endif
+      @endif
+
     </div>
     @endforeach
     <div class="row">
@@ -62,6 +88,7 @@
           @endforeach
         </div>
       </div>
+
     </div>
     @if((Auth::user()->id)==($numprofile->id))
       <div class="modal fade" id="editpic" role="dialog">
@@ -72,7 +99,7 @@
             </div>
             <div class="modal-body">
               <table class="table table-striped">
-                <form enctype="multipart/form-data" method="POST" action="{{ route('profile.avatar') }}"">
+                <form enctype="multipart/form-data" method="POST" action="{{ route('profile.avatar') }}">
                   <tr>
                     <th><div  align="center"> <img class="img-circle img-responsive" src="/avatar/{{ $numprofile->avatar }}" style="weight:150px; height:100px; float:left;" /> </div></th>
                     <th>
@@ -133,36 +160,107 @@
         </div>
       </div>
     </div>
+    @if(Auth::check())
+      @if(Auth::user()->type == 'user')
+        <div class="modal fade" id="openclub" role="dialog">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">ขอเพิ่มชมรม</h4>
+              </div>
+              <div class="modal-body">
+                <table class="table table-striped">
+                  <form method="POST" id="formrequestclub">
+                    <tr>
+                      <th><input type="text" id="clubname" name="avatar" class="form-control" placeholder="ชื่อชมรมที่ขอเปิด"></th>
+                    </tr>
+                    <tr>
+                      <th><textarea rows="3" id="clubdetail" class="form-control" placeholder="รายละเอียด"></textarea></th>
+                    </tr>
+                    <tr>
+                      <th><input type="submit" class="btn btn-success" value="ตกลง"></th>
+                    </tr>
+                    <input type="hidden" name="_token" value="{{ Session::token() }}">
+                    </form>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      @endif
+    @endif
     <script>
+      $(document).ready(function(){
 
-      $("#form-update-profile").submit(function(e){
-        var dds = $('#form-update-profile').serialize();
+        $('#formrequestclub').submit(function(){
+          var clubname = $('#clubname').val()
+          var clubdetail = $('#clubdetail').val()
 
-        $.post("{{ route('profile.edit') }}", dds, function(data){
-          if(data.vali != undefined){
-            swal("แก้ไขข้อมูลแล้ว", "", "success")
+          $.ajax({
+            url:"{{ route('postrequest.postrequest') }}",
+            type:"POST",
+            data:{clubname:clubname,clubdetail:clubdetail,_token:  "{{ Session::token() }}"},
+            success:function(data){
+              alert(data)
+              $('#openclub').modal('hide');
+              $('#clubname').val('')
+              $('#clubdetail').val('')
+            }
+          });
+          return false;
+        })
+        $("#form-update-profile").submit(function(e){
+          var dds = $('#form-update-profile').serialize();
 
-            $('#edit').modal('hide');
-            $('#a').html((data.xx).studentid_name)
-            $('#b').html((data.xx).faculty_name)
-            $('#c').html((data.xx).department_name)
-          }
-          else{    //ไม่ผ่าน
-            $("#error_studentid_name").html('');
-            $("#error_faculty_name").html('');
-            $("#error_department_name").html('');
-            if (data.studentid_name !== undefined){
-                $("#error_studentid_name").html(data.studentid_name);
+          $.post("{{ route('profile.edit') }}", dds, function(data){
+            if(data.vali != undefined){
+              swal("แก้ไขข้อมูลแล้ว", "", "success")
+
+              $('#edit').modal('hide');
+              $('#a').html((data.xx).studentid_name)
+              $('#b').html((data.xx).faculty_name)
+              $('#c').html((data.xx).department_name)
             }
-            if (data.faculty_name !== undefined){
-                $("#error_faculty_name").html(data.faculty_name);
+            else{    //ไม่ผ่าน
+              $("#error_studentid_name").html('');
+              $("#error_faculty_name").html('');
+              $("#error_department_name").html('');
+              if (data.studentid_name !== undefined){
+                  $("#error_studentid_name").html(data.studentid_name);
+              }
+              if (data.faculty_name !== undefined){
+                  $("#error_faculty_name").html(data.faculty_name);
+              }
+              if (data.department_name !== undefined){
+                  $("#error_department_name").html(data.department_name);
+              }
             }
-            if (data.department_name !== undefined){
-                $("#error_department_name").html(data.department_name);
-            }
+          });
+          return false;
+        });
+      })
+      function requestsubmit(id){
+        $.ajax({
+          url:"{{ route('postrequestsubmit') }}",
+          type:"POST",
+          data:{id:id,_token:  "{{ Session::token() }}"},
+          success:function(data){
+
+            $('#'+id).html('')
           }
         });
         return false;
-    });
+
+      }
+      function requestreject(id){
+        $.ajax({
+          url:"{{ route('postrequestreject') }}",
+          type:"POST",
+          data:{id:id,_token:  "{{ Session::token() }}"},
+          success:function(data){
+            $('#'+id).html('')
+          }
+        });
+      }
     </script>
 @stop

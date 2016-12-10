@@ -7,6 +7,7 @@
         <label >Name: </label>
         <input type="text" name="username" class="form-control" style="width: 260px;" value="{{Request::old('username')}}" />
         <div class="text-danger" id='error_username'>{{$errors->first('username')}}</div>
+
     </div>
 
     <div class="form-group {{ $errors->has('email') ? ' has-error' : '' }}">
@@ -17,7 +18,7 @@
     </div>
     <div class="form-group">
         <label >Password: </label>
-        <input type="password" name="password" class="form-control" style="width: 260px;" value="{{Request::old('password')}}" />
+        <input type="password" name="password" class="form-control" style="width: 260px;" value="{{ Request::old('password') }}" />
         <div class="text-danger" id='error_password'>{{$errors->first('password')}}</div>
     </div>
     <input type="hidden" name="_token" value="{{ Session::token() }}" >

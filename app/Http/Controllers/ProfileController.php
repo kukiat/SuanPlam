@@ -8,16 +8,20 @@ use Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Models\member_user;
+use App\Models\clubmain;
 use Image;
 use Validator;
 class ProfileController extends Controller{
   public function getProfile($num){
     // เช็คด้วยว่าถ้าหน้าไหนไปไม่ได้ ให้เออเร่ออ
+    $check =0;
     $numprofile = member_user::where('id','=',$num)->get();
     $blogprofile = Status::where('member_id','=',$num)->orderBy('created_at', 'desc')->get();
-
+    $clubrequest = clubmain::where('active','=',$check)->get();
+    // dd($clubrequest);
     return view('profile.showprofile')
       ->with('numprofile',$numprofile)
+      ->with('clubrequest',$clubrequest)
       ->with('blogprofile',$blogprofile);
   }
   public function postProfile(Request $request,requestp $vidator){

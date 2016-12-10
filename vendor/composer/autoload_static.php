@@ -284,9 +284,11 @@ class ComposerStaticInit927954e997fd8c70a7ea60ac002e6937
     );
 
     public static $classMap = array (
+        'CreateClubmainTable' => __DIR__ . '/../..' . '/database/migrations/2016_12_10_165224_create_clubmain_table.php',
         'CreateCommentclassroomTable' => __DIR__ . '/../..' . '/database/migrations/2016_12_06_031602_create_commentclassroom_table.php',
         'CreateCommentincommentTable' => __DIR__ . '/../..' . '/database/migrations/2016_12_10_041851_create_commentincomment_table.php',
         'CreateCommentreplyTable' => __DIR__ . '/../..' . '/database/migrations/2016_11_07_024341_create_commentreply_table.php',
+        'CreateFeedclubTable' => __DIR__ . '/../..' . '/database/migrations/2016_12_10_175649_create_feedclub_table.php',
         'CreateMembersTable' => __DIR__ . '/../..' . '/database/migrations/2016_11_07_024224_create_members_table.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
         'CreatePostblogTable' => __DIR__ . '/../..' . '/database/migrations/2016_11_07_024249_create_postblog_table.php',

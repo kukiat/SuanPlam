@@ -12,7 +12,7 @@
 
         <div style="text-align:center;">
           <img class="img-circle img-responsive" src="/avatar/{{ $vall->member_userr->avatar }}" style="weight:75px; height:75px;margin-left:440px;margin-top:50px;"/>
-          <h4 >Posted By  <a href="{{route('profile.profile',['num' => $vall->member_id])}}">{{$vall->member_userr->username}}</a></h4>
+          <h4 >Posted By  <a href="{{route('profile.profile',['num' => $vall->member_id])}}">{{ $vall->member_userr->username }}</a></h4>
           <h6 >{{ $vall->created_at->diffForHumans() }}</h6>
 
         </div>
@@ -38,7 +38,7 @@
     <h3><b>Comment </b></h3>
     <div id="add">
        @foreach($send as $sendd)                <!--   comment -->
-          <div class="list-group" >
+          <div class="list-group" id="{{ $sendd->id }}">
             <div  class="list-group-item">
               <img class="img-circle img-responsive" src="/avatar/{{ $sendd->userrrr->avatar }}" style="weight:75px; height:75px; float:left;margin-right:12px;"/>
               <a href="{{ route('profile.profile',['num'=>$sendd->member_comment_id])}}" target="_blank"><h3 class="list-group-item-heading"><b>{{ $sendd->userrrr->username }}</b></h3></a>
@@ -52,9 +52,11 @@
 
                 @endif
               </p>
-              <a href="#" onclick="replyreply('{{ $sendd->id }}','{{ $sendd->statused->id}}')" data-toggle="modal" data-target="#reply-reply">Reply</a>
+              @if(Auth::check())
+                <a href="#" onclick="replyreply('{{ $sendd->id }}','{{ $sendd->statused->id}}')" data-toggle="modal" data-target="#reply-reply">Reply</a>
+              @endif
             </div>
-            <div data-id="{{ $sendd->id }}">
+
             @foreach($commentcomment as $commentcommen)
               @if(($commentcommen->comment_commentincomment_id) == ($sendd->id))
 
@@ -65,7 +67,7 @@
 
               @endif
             @endforeach
-            </div>
+
           </div>
 
           @endforeach
@@ -114,7 +116,7 @@
               if(((data.xx).id)==((data.vv).member_comment_id)){
                 str = '<a href="#" style="float:right; margin-top:-90px;" data-toggle="modal" data-target="#edit-comment" onclick="ggg(\'' + (data.vv).body + '\',\'' + (data.vv).id + '\')">'+'แก้ไข'+'</a>'
               }
-              $('#add').append('<div class="list-group">'+
+              $('#add').append('<div class="list-group" id="' + (data.vv).id + '">'+
                 '<div  class="list-group-item">'+
                   '<img src="/avatar/'+(data.xx).avatar+'" class="img-circle img-responsive"  style="weight:75px; height:75px; float:left;margin-right:12px;"/>'+
                     '<a  href="/profile/'+(data.xx).id+'" target="_blank">'+'<h3 class="list-group-item-heading">'+'<b>'+(data.xx).username+'</b>'+'</h3>'+'</a>'+
@@ -215,10 +217,8 @@ $('#reply-reply-submit').submit(function(){
     data:{id:id,blog:blog,body:body,_token:  "{{ Session::token() }}"},
     success:function(data){
       $('#reply-reply').modal('hide');
-      //  alert((data.res).body+(data.ress).username)
-       var x = (data.res).comment_commentincomment_id;
-       alert(x)
-       $('#add-reply-reply').append('<h1>'+(data.ress).username+'</h1>'+'<h1>'+(data.res).body+'</h1>')
+        var x = (data.res).comment_commentincomment_id;
+        $('#'+id).append('<h1>'+(data.ress).username+'</h1>'+'<h1>'+(data.res).body+'</h1>')
     }
   });
   return false;
