@@ -73,14 +73,11 @@ class FeedController extends Controller{
         'body' => $cv,
       ]);
       $create->save();
-      $vv = comment::where([
-        ['member_comment_id','=',Auth::user()->id],
-        ['blog_comment_id','=',$blog],
-        ['body','=',$cv],
-      ])->first();
-      $xx = member_user::where('id', '=', $vv->member_comment_id)->first();
+      $vv = $create;
+      $xx = member_user::where('id', '=', $create->member_comment_id)->first();
       return response()->json(array('vv'=>$vv,'xx'=>$xx));
   }
+
   public function createtopic(){
     $tag = tag::get();
     return view('feed.createtopic')->with('tag',$tag);

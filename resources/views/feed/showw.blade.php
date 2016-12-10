@@ -54,14 +54,18 @@
               </p>
               <a href="#" onclick="replyreply('{{ $sendd->id }}','{{ $sendd->statused->id}}')" data-toggle="modal" data-target="#reply-reply">Reply</a>
             </div>
+            <div data-id="{{ $sendd->id }}">
             @foreach($commentcomment as $commentcommen)
               @if(($commentcommen->comment_commentincomment_id) == ($sendd->id))
-                <p>name : {{ $commentcommen->members->username}}</p>
-                picture:<img class="img-circle img-responsive" src="/avatar/{{ $commentcommen->members->avatar }}" style="weight:15px; height:15px;"/>
-                <p>text :{{ $commentcommen->body }}</p>
-                <p>time :{{ $commentcommen->created_at->diffForHumans()}}</p><hr>
+
+                  <p>name : {{ $commentcommen->members->username}}</p>
+                  picture:<img class="img-circle img-responsive" src="/avatar/{{ $commentcommen->members->avatar }}" style="weight:15px; height:15px;"/>
+                  <p>text :{{ $commentcommen->body }}</p>
+                  <p>time :{{ $commentcommen->created_at->diffForHumans()}}</p><hr>
+
               @endif
             @endforeach
+            </div>
           </div>
 
           @endforeach
@@ -118,6 +122,7 @@
                       '<h4>'+(data.vv).body+'</h4>'+
                       '<h6>'+'1 second ago'+'</h6>'+  str
                           +'</p>'+
+                            '<a href="#" onclick="replyreply(\'' + (data.vv).id + '\',\'' + (data.vv).blog_comment_id + '\')" data-toggle="modal" data-target="#reply-reply">'+'Reply'+'</a>'+
                 '</div>'+
               '</div>');
 
@@ -209,7 +214,11 @@ $('#reply-reply-submit').submit(function(){
     url:"{{ route('replyinreply') }}",
     data:{id:id,blog:blog,body:body,_token:  "{{ Session::token() }}"},
     success:function(data){
-      alert((data.res).body+(data.ress).username)
+      $('#reply-reply').modal('hide');
+      //  alert((data.res).body+(data.ress).username)
+       var x = (data.res).comment_commentincomment_id;
+       alert(x)
+       $('#add-reply-reply').append('<h1>'+(data.ress).username+'</h1>'+'<h1>'+(data.res).body+'</h1>')
     }
   });
   return false;
