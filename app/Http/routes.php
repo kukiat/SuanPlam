@@ -185,3 +185,15 @@ Route::post('/postrequestreject',[
   'uses' => '\App\Http\Controllers\ClubController@postrequestreject',
   'as' => 'postrequestreject',
 ]);
+Route::post('/postrequestclubforother',[
+  'uses' => '\App\Http\Controllers\ClubController@postrequestclubforother',
+  'as' => 'postrequestclubforother',
+]);
+Route::post('/postsubmitrequestclub',[
+  'uses' => '\App\Http\Controllers\ClubController@postsubmitrequestclub',
+  'as' => 'postsubmitrequestclub',
+]);
+Route::post('/postrejectrequestclub',[
+  'uses' => '\App\Http\Controllers\ClubController@postrejectrequestclub',
+  'as' => 'postrejectrequestclub',
+]);

@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Models\member_user;
 use App\Models\clubmain;
+use App\Models\norequest;
 use Image;
 use Validator;
 class ProfileController extends Controller{
@@ -18,11 +19,14 @@ class ProfileController extends Controller{
     $numprofile = member_user::where('id','=',$num)->get();
     $blogprofile = Status::where('member_id','=',$num)->orderBy('created_at', 'desc')->get();
     $clubrequest = clubmain::where('active','=',$check)->get();
+    $norequest = norequest::get();
     // dd($clubrequest);
     return view('profile.showprofile')
       ->with('numprofile',$numprofile)
       ->with('clubrequest',$clubrequest)
-      ->with('blogprofile',$blogprofile);
+      ->with('blogprofile',$blogprofile)
+      ->with('norequest',$norequest)
+      ->with('num',$num);
   }
   public function postProfile(Request $request,requestp $vidator){
 

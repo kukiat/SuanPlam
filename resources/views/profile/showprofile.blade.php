@@ -13,11 +13,7 @@
 
           </div>
             <div class="col-md-9 col-lg-9 ">
-              @if(Auth::check())
-                @if(Auth::user()->type == 'user')
-                  <input type="button" value="ขอเปิดชมรม" class="btn btn-success" data-toggle="modal" data-target="#openclub">
-                @endif
-              @endif
+
               <table class="table table-user-information">
                 <tbody>
                   <tr>
@@ -47,30 +43,46 @@
               @endif
             </div>
           </div>
-
         </div>
-
       </div>
-
-    </div>
-    <div class="col-md-3">
-      @if(Auth::check())
-        @if(Auth::user()->type == 'admin')
-          @foreach($clubrequest as $clubreques)
-          <div id="{{ $clubreques->id }}">
-            ชื่อ : {{ $clubreques->id }}
-            ชื่อชมรม : {{ $clubreques->club_name }}
-            รายละเอียด : {{ $clubreques->detail }}
-            <button type="button" onclick="requestsubmit('{{ $clubreques->id }}')">ตกลง</button>
-            <button type="button" onclick="requestreject('{{ $clubreques->id }}')">ไม่อนุมัต</button>
-            <br><hr>
-          </div>
-          @endforeach
-        @endif
-      @endif
-
     </div>
     @endforeach
+    <div class="col-md-3">
+      @if(Auth::check())
+        @if(Auth::user()->type == 'user') <!--ของแอดมินเท่านั้น -->
+          @if(Auth::user()->id == $num)
+            <input type="button" value="ขอเปิดชมรม" class="btn btn-success" data-toggle="modal" data-target="#openclub">
+          @endif
+        @endif
+        @if(Auth::user()->type == 'admin') <!--ของแอดมินเท่านั้น -->
+          @if(Auth::user()->id == $num)
+            <h2>คนขอสร้างชมรม</h2>
+            @foreach($clubrequest as $clubreques)
+            <div id="{{ $clubreques->id }}">
+              ชื่อ : {{ $clubreques->id }}
+              ชื่อชมรม : {{ $clubreques->club_name }}
+              รายละเอียด : {{ $clubreques->detail }}
+              <button type="button" class="btn btn-success" onclick="requestsubmit('{{ $clubreques->id }}')">ตกลง</button>
+              <button type="button" class="btn btn-danger" onclick="requestreject('{{ $clubreques->id }}')">ไม่อนุมัต</button>
+              <br><hr>
+            </div>
+            @endforeach
+            <h2>คนขอเข้าชมรมทั้งหมด</h2>
+            @foreach($norequest as $noreques)
+              {{ $noreques->id }}
+              <button type="button" class="btn btn-success" onclick="requestsubmitclub('{{ $noreques->id }}')">ตกลง</button>
+              <button type="button" class="btn btn-danger" onclick="requestrejectclub('{{ $noreques->id }}')">ไม่อนุมัต</button>
+              <hr>
+            @endforeach
+          @endif
+        @else <!--หลังจากนี้คือคนทั่วไป -->
+          @if(Auth::user()->id == $num)
+            <h2>เพื่อที่ขอเข้าชมรมจากชมรมที่คุณอยู่</h2>
+          @endif
+        @endif
+      @endif
+    </div>
+
     <div class="row">
       <div class="col-md-8"><h3>กระทู้ที่เคยสร้าง</h3></div>
     </div>
@@ -90,32 +102,34 @@
       </div>
 
     </div>
-    @if((Auth::user()->id)==($numprofile->id))
-      <div class="modal fade" id="editpic" role="dialog">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title">แก้ไขรูป</h4>
-            </div>
-            <div class="modal-body">
-              <table class="table table-striped">
-                <form enctype="multipart/form-data" method="POST" action="{{ route('profile.avatar') }}">
-                  <tr>
-                    <th><div  align="center"> <img class="img-circle img-responsive" src="/avatar/{{ $numprofile->avatar }}" style="weight:150px; height:100px; float:left;" /> </div></th>
-                    <th>
-                      <input type="file" name="avatar" id="ddd">
-                    </th>
-                  </tr>
-                  <tr>
-                    <th><input type="submit" class="btn btn-success" value="ตกลง" id="ggggg"></th>
-                  </tr>
-                  <input type="hidden" name="_token" value="{{ Session::token() }}">
-                  </form>
-              </table>
+    @if(Auth::check())
+      @if((Auth::user()->id)==($numprofile->id))
+        <div class="modal fade" id="editpic" role="dialog">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">แก้ไขรูป</h4>
+              </div>
+              <div class="modal-body">
+                <table class="table table-striped">
+                  <form enctype="multipart/form-data" method="POST" action="{{ route('profile.avatar') }}">
+                    <tr>
+                      <th><div  align="center"> <img class="img-circle img-responsive" src="/avatar/{{ $numprofile->avatar }}" style="weight:150px; height:100px; float:left;" /> </div></th>
+                      <th>
+                        <input type="file" name="avatar" id="ddd">
+                      </th>
+                    </tr>
+                    <tr>
+                      <th><input type="submit" class="btn btn-success" value="ตกลง" id="ggggg"></th>
+                    </tr>
+                    <input type="hidden" name="_token" value="{{ Session::token() }}">
+                    </form>
+                </table>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      @endif
     @endif
     <div class="modal fade" id="edit" role="dialog">
       <div class="modal-dialog modal-lg">
@@ -163,30 +177,31 @@
     @if(Auth::check())
       @if(Auth::user()->type == 'user')
         <div class="modal fade" id="openclub" role="dialog">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h4 class="modal-title">ขอเพิ่มชมรม</h4>
-              </div>
-              <div class="modal-body">
-                <table class="table table-striped">
-                  <form method="POST" id="formrequestclub">
-                    <tr>
-                      <th><input type="text" id="clubname" name="avatar" class="form-control" placeholder="ชื่อชมรมที่ขอเปิด"></th>
-                    </tr>
-                    <tr>
-                      <th><textarea rows="3" id="clubdetail" class="form-control" placeholder="รายละเอียด"></textarea></th>
-                    </tr>
-                    <tr>
-                      <th><input type="submit" class="btn btn-success" value="ตกลง"></th>
-                    </tr>
-                    <input type="hidden" name="_token" value="{{ Session::token() }}">
-                    </form>
-                </table>
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title">ขอเพิ่มชมรม</h4>
+                </div>
+                <div class="modal-body">
+                  <table class="table table-striped">
+                    <form method="POST" id="formrequestclub">
+                      <tr>
+                        <th><input type="text" id="clubname" name="avatar" class="form-control" placeholder="ชื่อชมรมที่ขอเปิด"></th>
+                      </tr>
+                      <tr>
+                        <th><textarea rows="3" id="clubdetail" class="form-control" placeholder="รายละเอียด"></textarea></th>
+                      </tr>
+                      <tr>
+                        <th><input type="submit" class="btn btn-success" value="ตกลง"></th>
+                      </tr>
+                      <input type="hidden" name="_token" value="{{ Session::token() }}">
+                      </form>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+
       @endif
     @endif
     <script>
@@ -245,7 +260,6 @@
           type:"POST",
           data:{id:id,_token:  "{{ Session::token() }}"},
           success:function(data){
-
             $('#'+id).html('')
           }
         });
@@ -259,6 +273,26 @@
           data:{id:id,_token:  "{{ Session::token() }}"},
           success:function(data){
             $('#'+id).html('')
+          }
+        });
+      }
+      function requestsubmitclub(id){
+        $.ajax({
+          url:"{{ route('postsubmitrequestclub') }}",
+          type:"POST",
+          data:{id:id,_token:  "{{ Session::token() }}"},
+          success:function(data){
+            alert(data)
+          }
+        });
+      }
+      function requestrejectclub(id){
+        $.ajax({
+          url:"{{ route('postrejectrequestclub') }}",
+          type:"POST",
+          data:{id:id,_token:  "{{ Session::token() }}"},
+          success:function(data){
+            alert(data)
           }
         });
       }
