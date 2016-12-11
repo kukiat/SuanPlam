@@ -10,6 +10,7 @@ use App\Http\Requests;
 use App\Models\member_user;
 use App\Models\clubmain;
 use App\Models\norequest;
+use App\Models\yesrequest;
 use Image;
 use Validator;
 class ProfileController extends Controller{
@@ -20,12 +21,16 @@ class ProfileController extends Controller{
     $blogprofile = Status::where('member_id','=',$num)->orderBy('created_at', 'desc')->get();
     $clubrequest = clubmain::where('active','=',$check)->get();
     $norequest = norequest::get();
+    $norequestuser = norequest::get();
+    $yesrequestuser = yesrequest::where('member_yesrequestclub_id','=',Auth::user()->id)->get();
     // dd($clubrequest);
     return view('profile.showprofile')
       ->with('numprofile',$numprofile)
       ->with('clubrequest',$clubrequest)
       ->with('blogprofile',$blogprofile)
       ->with('norequest',$norequest)
+      ->with('norequestuser',$norequestuser)
+      ->with('yesrequestuser',$yesrequestuser)
       ->with('num',$num);
   }
   public function postProfile(Request $request,requestp $vidator){

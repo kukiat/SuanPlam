@@ -95,7 +95,11 @@ Route::get('/classroom',[
   'uses' => '\App\Http\Controllers\ClassroomController@getShow',
   'as' => 'classroom.classroom',
 ]);
-
+Route::get('/club/{id}/create',[
+  'uses' => '\App\Http\Controllers\ClubController@createclub',
+  'as' => 'create.club',
+  'middleware' => ['auth'],
+]);
 
 
 
@@ -196,4 +200,16 @@ Route::post('/postsubmitrequestclub',[
 Route::post('/postrejectrequestclub',[
   'uses' => '\App\Http\Controllers\ClubController@postrejectrequestclub',
   'as' => 'postrejectrequestclub',
+]);
+Route::post('/postsubmitfriend',[
+  'uses' => '\App\Http\Controllers\ClubController@postsubmitfriend',
+  'as' => 'postsubmitfriend',
+]);
+Route::post('/postrejectfriend',[
+  'uses' => '\App\Http\Controllers\ClubController@postrejectfriend',
+  'as' => 'postrejectfriend',
+]);
+Route::post('/postcreateclub',[
+  'uses' => '\App\Http\Controllers\ClubController@postcreateclub',
+  'as' => 'postcreateclub',
 ]);

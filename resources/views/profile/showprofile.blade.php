@@ -62,22 +62,36 @@
               ชื่อ : {{ $clubreques->id }}
               ชื่อชมรม : {{ $clubreques->club_name }}
               รายละเอียด : {{ $clubreques->detail }}
-              <button type="button" class="btn btn-success" onclick="requestsubmit('{{ $clubreques->id }}')">ตกลง</button>
+
+              <button type="button" class="btn btn-success" onclick="requestsubmit('{{ $clubreques->id }}','{{ $clubreques->member_request_id }}')">ตกลง</button>
               <button type="button" class="btn btn-danger" onclick="requestreject('{{ $clubreques->id }}')">ไม่อนุมัต</button>
               <br><hr>
             </div>
             @endforeach
             <h2>คนขอเข้าชมรมทั้งหมด</h2>
             @foreach($norequest as $noreques)
-              {{ $noreques->id }}
-              <button type="button" class="btn btn-success" onclick="requestsubmitclub('{{ $noreques->id }}')">ตกลง</button>
-              <button type="button" class="btn btn-danger" onclick="requestrejectclub('{{ $noreques->id }}')">ไม่อนุมัต</button>
-              <hr>
+              <div id="club{{ $noreques->id }}">
+                ไอดีที่ {{ $noreques->member_norequestclub_id }}
+                <button type="button" class="btn btn-success" onclick="requestsubmitclub('{{ $noreques->id }}')">ตกลง</button>
+                <button type="button" class="btn btn-danger" onclick="requestrejectclub('{{ $noreques->id }}')">ไม่อนุมัต</button>
+                <hr>
+              </div>
             @endforeach
           @endif
         @else <!--หลังจากนี้คือคนทั่วไป -->
           @if(Auth::user()->id == $num)
             <h2>เพื่อที่ขอเข้าชมรมจากชมรมที่คุณอยู่</h2>
+            @foreach($yesrequestuser as $yesrequestuse)
+              @foreach($norequestuser as $norequestuse)
+                @if(($yesrequestuse->club_yesrequestclub_id) == ($norequestuse->club_norequestclub_id))
+                  <div id="friend{{ $norequestuse->id }}">
+                    <h4>ไอดีที่{{ $norequestuse->member_norequestclub_id }}</h4>
+                    <button type="button" class="btn btn-success" onclick="requestsubmitclubuser('{{ $norequestuse->id }}')">ตกลง</button>
+                    <button type="button" class="btn btn-danger" onclick="rejectsubmitclubuser('{{ $norequestuse->id }}')">ไม่อนุมัต</button><hr>
+                  </div>
+                @endif
+              @endforeach
+            @endforeach
           @endif
         @endif
       @endif
@@ -254,11 +268,11 @@
           return false;
         });
       })
-      function requestsubmit(id){
+      function requestsubmit(id,requestid){
         $.ajax({
           url:"{{ route('postrequestsubmit') }}",
           type:"POST",
-          data:{id:id,_token:  "{{ Session::token() }}"},
+          data:{id:id,requestid:requestid,_token:  "{{ Session::token() }}"},
           success:function(data){
             $('#'+id).html('')
           }
@@ -282,7 +296,7 @@
           type:"POST",
           data:{id:id,_token:  "{{ Session::token() }}"},
           success:function(data){
-            alert(data)
+            $('#club'+id).html('')
           }
         });
       }
@@ -292,7 +306,27 @@
           type:"POST",
           data:{id:id,_token:  "{{ Session::token() }}"},
           success:function(data){
-            alert(data)
+            $('#club'+id).html('')
+          }
+        });
+      }
+      function requestsubmitclubuser(id){
+        $.ajax({
+          url:"{{ route('postsubmitfriend') }}",
+          type:"POST",
+          data:{id:id,_token:  "{{ Session::token() }}"},
+          success:function(data){
+            $('#friend'+id).html('')
+          }
+        });
+      }
+      function rejectsubmitclubuser(id){
+        $.ajax({
+          url:"{{ route('postrejectfriend') }}",
+          type:"POST",
+          data:{id:id,_token:  "{{ Session::token() }}"},
+          success:function(data){
+            $('#friend'+id).html('')
           }
         });
       }

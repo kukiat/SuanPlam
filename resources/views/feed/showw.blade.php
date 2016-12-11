@@ -8,7 +8,7 @@
       @foreach($val as $vall)    <!--   TOPIC-->
         <h1 style="text-align:center;color:#03a9f4;"><b>{{ $vall->topic }}</b></h1>
         <hr>
-        <h2 style="font-size: 2em;">{!! str_limit($vall->body,2000) !!}</h2>
+        <h2 style="font-size: 2em;">{!! str_limit($vall->body,20000) !!}</h2>
 
         <div style="text-align:center;">
           <img class="img-circle img-responsive" src="/avatar/{{ $vall->member_userr->avatar }}" style="weight:75px; height:75px;margin-left:440px;margin-top:50px;"/>
@@ -43,8 +43,9 @@
               <img class="img-circle img-responsive" src="/avatar/{{ $sendd->userrrr->avatar }}" style="weight:75px; height:75px; float:left;margin-right:12px;"/>
               <a href="{{ route('profile.profile',['num'=>$sendd->member_comment_id])}}" target="_blank"><h3 class="list-group-item-heading"><b>{{ $sendd->userrrr->username }}</b></h3></a>
               <p class="list-group-item-text">
-                <h4 id="xxsx">{{ $sendd->body }}</h4>
+                <h4 id="editt{{ $sendd->id }}">{{ $sendd->body }}</h4>
                 <h6>{{ $sendd->created_at->diffForHumans()}}</h6>
+                <h6 id="time{{ $sendd->id }}"></h6>
                 @if(Auth::check())
                   @if((Auth::user()->id)==($sendd->member_comment_id))
                     <a href="#" style="float:right; margin-top:-90px;" data-toggle="modal" data-target="#edit-comment" onclick="ggg('{{ $sendd->body }}','{{ $sendd->id }}')">แก้ไข</a>
@@ -121,7 +122,7 @@
                   '<img src="/avatar/'+(data.xx).avatar+'" class="img-circle img-responsive"  style="weight:75px; height:75px; float:left;margin-right:12px;"/>'+
                     '<a  href="/profile/'+(data.xx).id+'" target="_blank">'+'<h3 class="list-group-item-heading">'+'<b>'+(data.xx).username+'</b>'+'</h3>'+'</a>'+
                       '<p class="list-group-item-text">'+
-                      '<h4>'+(data.vv).body+'</h4>'+
+                      '<h4 id="editt'+(data.vv).id+'">'+(data.vv).body+'</h4>'+
                       '<h6>'+'1 second ago'+'</h6>'+  str
                           +'</p>'+
                             '<a href="#" onclick="replyreply(\'' + (data.vv).id + '\',\'' + (data.vv).blog_comment_id + '\')" data-toggle="modal" data-target="#reply-reply">'+'Reply'+'</a>'+
@@ -142,6 +143,8 @@
     });
 
   function ggg(data,data2){
+    var id = data2;
+
     $('#show_modal_edit').html('<div class="modal fade" id="edit-comment" role="dialog">'+
       '<div class="modal-dialog modal-lg">'+
         '<div class="modal-content">'+
@@ -153,7 +156,7 @@
             '<form id="edit-comment-ajax" method="POST">'+
                 '<div id="idid" name="idja"></div>'+
                   '<div class="col-md-12">'+
-                      '<textarea type="text" class="form-control" id="text-comment" rows="4" name="commenddd" value="+oh+" autofocus>'+'</textarea>'+'<br>'+
+                      '<textarea type="text" class="form-control" id="text-comment" rows="4" name="commenddd" autofocus>'+'</textarea>'+'<br>'+
                   '</div>'+
               '<div class="col-md-12">'+
                 '<button type="submit" class="btn btn-success">'+'แก้ไข'+'</button>'+
@@ -165,7 +168,7 @@
         '</div>'+
       '</div>'+
     '</div>');
-    $('#text-comment').html(data)
+    $('#text-comment').val(data)
 
     $("#edit-comment-ajax").submit(function(){
       // var ss = $('#edit-comment-ajax').serialize();
@@ -175,7 +178,10 @@
         type:"POST",
         data:{topic:dd,id:data2,_token:  "{{ Session::token() }}"},
         success:function(data){
+
           $('#edit-comment').modal('hide');
+          $('#editt'+id).html(data.topic)
+          // $('#time'+id).html(data.topic)
         }
       });
        return false;

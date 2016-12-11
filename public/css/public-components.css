@@ -1,0 +1,25 @@
+nav {
+    height: 45px;
+    line-height: 45px;
+    background-color: #FF5A1D;
+}
+nav .brand{
+	font-size: 1.6rem;
+}
+nav .fa-lg{
+	vertical-align: -6%;
+}
+.side-nav li>a>i{
+	margin: 0px;
+}
+.profile{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+.name{
+	margin-left: 7px;
+}
+img{
+	border-radius: 50%;
+}

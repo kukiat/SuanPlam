@@ -13,7 +13,7 @@ class CreateClubmainTable extends Migration
           $table->integer('active');
           $table->text('detail');
           $table->integer('member_request_id')->unsigned();
-          $table->foreign('member_request_id')->references('id')->on('members')->onDelete('cascade');;
+          $table->foreign('member_request_id')->references('id')->on('members')->onDelete('cascade');
           $table->timestamps();
       });
     }

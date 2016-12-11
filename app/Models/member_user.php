@@ -22,7 +22,7 @@ class member_user extends Model implements AuthenticatableContract{
         'password',
         'remember_token',
     ];
-    
+
     public function getKey(){
       return "{$this->id}";
     }
@@ -45,6 +45,11 @@ class member_user extends Model implements AuthenticatableContract{
     public function commentcomment(){
      return $this->hasMany('App\Models\commentcomment','member_commentincomment_id');
     }
-
+    public function feedclub(){
+     return $this->hasMany('App\Models\feedclub','member_id');
+    }
+    public function yesrequest(){
+     return $this->hasMany('App\Models\yesrequest','member_yesrequestclub_id');
+    }
 
 }

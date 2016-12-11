@@ -47,17 +47,15 @@ class FeedController extends Controller{
     $send = comment::where('blog_comment_id', '=', $blog)->get();
     $posttag = posttag::where('post_id', '=', $blog)->get();
     $commentcomment = commentcomment::where('blog_commentincomment_id', '=', $blog)->get();
-    //เช็ค if มี blog นั้นจริงๆหรทอป่าว แต่ยังไม่ทำ
-
-      return view('feed.showw')
-      ->with('val', $val)
-      ->with('blog', $blog)
-      ->with('send', $send)
-      ->with('posttag',$posttag)
-      ->with('commentcomment',$commentcomment);
-
-
-
+    if(!count($val)){
+      return redirect()->route('home');
+    }
+    return view('feed.showw')
+    ->with('val', $val)
+    ->with('blog', $blog)
+    ->with('send', $send)
+    ->with('posttag',$posttag)
+    ->with('commentcomment',$commentcomment);
   }
   public function postComment(Request $request,requestcomment $formulario,$blog){
       //post ajax ของหน้า comment

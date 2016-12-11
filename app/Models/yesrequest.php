@@ -10,6 +10,8 @@ class yesrequest extends Model{
       'member_yesrequestclub_id',
       'club_yesrequestclub_id',
     ];
-
+    public function user(){
+      return $this->belongsTo('App\Models\member_user','member_yesrequestclub_id');
+    }
 
 }
