@@ -18,14 +18,12 @@
     <hr>
   <h3><b>กระทู้</b></h3><br>
     @foreach($showfeed as $showfee)
-      <a  href="#" onclick="showfeedclub('{{ $showfee->body }}')">{{ $showfee->topic }}</a>
+      <a  href="#" data-toggle="modal" data-target="#modalclub" onclick="showfeedclub('{{ $showfee->id }}','{{ $showfee->user->username }}')">{{ $showfee->topic }}</a>
       <b>ชื่อคนโพส</b> {{ $showfee->user->username }}
       <b>เวลา </b>{{ $showfee->created_at->diffForHumans()}}
       <br><hr>
     @endforeach
-    <div id="ttt">
-
-    </div>
+    <div id="ttt"></div>
 <script>
   function gotorequest(clubid,memberid){
     var id = clubid;
@@ -40,8 +38,15 @@
     })
     return false;
   }
-  function showfeedclub(data){
-    $('#ttt').html(data)
+  function showfeedclub(id,name){
+    $.ajax({
+      url:"{{ route('postclubdetail') }}",
+      type:"POST",
+      data:{id:id,_token:  "{{ Session::token() }}"},
+      success:function(data){
+        $('#ttt').html('<p>'+data.feedclub.topic+'</p>'+data.feedclub.body+'<p>'+name+'</p>')
+      }
+    })
   }
 </script>
 @stop

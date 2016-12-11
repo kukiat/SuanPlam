@@ -13,8 +13,11 @@ class clubmain extends Model{
         'member_request_id',
 
     ];
+    public function members(){
+      return $this->belongsTo('App\Models\member_user','member_request_id');
+    }
 
-    // public function commentcomment(){
-    //   return $this->hasMany('App\Models\commentcomment','comment_commentincomment_id');
-    // }
+    public function norequest(){
+      return $this->hasMany('App\Models\norequest','club_norequestclub_id');
+    }
 }

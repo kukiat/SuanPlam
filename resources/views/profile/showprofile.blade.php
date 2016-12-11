@@ -59,7 +59,7 @@
             <h2>คนขอสร้างชมรม</h2>
             @foreach($clubrequest as $clubreques)
             <div id="{{ $clubreques->id }}">
-              ชื่อ : {{ $clubreques->id }}
+              คนที่ขอเปิด : {{ $clubreques->members->username }}
               ชื่อชมรม : {{ $clubreques->club_name }}
               รายละเอียด : {{ $clubreques->detail }}
 
@@ -71,7 +71,9 @@
             <h2>คนขอเข้าชมรมทั้งหมด</h2>
             @foreach($norequest as $noreques)
               <div id="club{{ $noreques->id }}">
-                ไอดีที่ {{ $noreques->member_norequestclub_id }}
+                <b>ชื่อ</b> {{ $noreques->members->username }}
+                <b>ชมรมที่ขอเข้า</b> {{ $noreques->club->club_name }}
+                <b>เวลา</b> {{ $noreques->created_at }}
                 <button type="button" class="btn btn-success" onclick="requestsubmitclub('{{ $noreques->id }}')">ตกลง</button>
                 <button type="button" class="btn btn-danger" onclick="requestrejectclub('{{ $noreques->id }}')">ไม่อนุมัต</button>
                 <hr>
@@ -80,12 +82,13 @@
           @endif
         @else <!--หลังจากนี้คือคนทั่วไป -->
           @if(Auth::user()->id == $num)
-            <h2>เพื่อที่ขอเข้าชมรมจากชมรมที่คุณอยู่</h2>
+            <h2>เพื่อนที่ขอเข้าชมรม</h2>
             @foreach($yesrequestuser as $yesrequestuse)
               @foreach($norequestuser as $norequestuse)
                 @if(($yesrequestuse->club_yesrequestclub_id) == ($norequestuse->club_norequestclub_id))
                   <div id="friend{{ $norequestuse->id }}">
-                    <h4>ไอดีที่{{ $norequestuse->member_norequestclub_id }}</h4>
+                    <h4>ชื่อ{{ $norequestuse->members->username }}</h4>
+                    <h4>ชื่อ{{ $norequestuse->members->username }}</h4>
                     <button type="button" class="btn btn-success" onclick="requestsubmitclubuser('{{ $norequestuse->id }}')">ตกลง</button>
                     <button type="button" class="btn btn-danger" onclick="rejectsubmitclubuser('{{ $norequestuse->id }}')">ไม่อนุมัต</button><hr>
                   </div>
@@ -331,4 +334,6 @@
         });
       }
     </script>
+
+
 @stop

@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('content')
-{{$id}}
+
 <form role="form" method="post" id="createfeedsub">
   <input type="hidden" value="{{$id}}" name="hiddenid">
   <div class="form-group">
@@ -30,7 +30,7 @@ $('#createfeedsub').submit(function(){
   $.post("{{ route('postcreateclub') }}",dds, function(data){
     console.log(data.check)
     if(data.check != undefined){
-      alert('ok');
+      window.location = "/club";
     }
     else{    //ไม่ผ่าน
       $("#error_topic_club_name").html('');

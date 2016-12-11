@@ -213,3 +213,7 @@ Route::post('/postcreateclub',[
   'uses' => '\App\Http\Controllers\ClubController@postcreateclub',
   'as' => 'postcreateclub',
 ]);
+Route::post('/postclubdetail',[
+  'uses' => '\App\Http\Controllers\ClubController@postclubdetail',
+  'as' => 'postclubdetail',
+]);

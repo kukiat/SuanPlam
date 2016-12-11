@@ -51,5 +51,11 @@ class member_user extends Model implements AuthenticatableContract{
     public function yesrequest(){
      return $this->hasMany('App\Models\yesrequest','member_yesrequestclub_id');
     }
+    public function norequest(){
+      return $this->hasMany('App\Models\norequest','member_norequestclub_id');
+    }
+    public function clubmains(){
+      return $this->hasMany('App\Models\clubmain','member_request_id');
+    }
 
 }

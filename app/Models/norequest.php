@@ -10,6 +10,10 @@ class norequest extends Model{
       'member_norequestclub_id',
       'club_norequestclub_id',
     ];
-    
-
+    public function members(){
+      return $this->belongsTo('App\Models\member_user','member_norequestclub_id');
+    }
+    public function club(){
+      return $this->belongsTo('App\Models\clubmain','club_norequestclub_id');
+    }
 }

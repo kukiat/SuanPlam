@@ -171,5 +171,10 @@ class ClubController extends Controller{
       return response()->json(array('check'=>true));
 
     }
+    public function postclubdetail(Request $request){
+      $id = $request->input('id');
+      $feedclub = feedclub::where('id','=',$id)->first();
+      return response()->json(array('feedclub'=>$feedclub));
+    }
 
 }
