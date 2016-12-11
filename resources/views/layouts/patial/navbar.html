@@ -6,16 +6,19 @@
 				<li><a href="{{ route('feed.index') }}">News</a></li>
 				<li><a href="{{ route('mainclub') }}">Clubs</a></li>
 				<li class="active"><a href="{{ route('classroom.classroom') }}">Classroom</a></li>
+				<!-- ยังไม่ Login -->
 				@if (Auth::check())
-				<li><a href="{{route('profile.profile',['num'=>Auth::user()->id])}}" class="profile">
-					<img src="/avatar/{{ Auth::user()->avatar }}" width="30" height="30">
-					<span class="name">{{ Auth::user()->username }}</span>
+				<li><a href="profile.html" class="profile">
+					<img src="images/orange2.jpg" width="30" height="30">
+					<span class="name">Udomsub</span>
 				</a></li>
-				<li><a href="{{ route('member.signout') }}"><i class="fa fa-sign-out fa-lg"></i>Logout</a></li>
+				<li><a href="login.html"><i class="fa fa-sign-out fa-lg"></i>Logout</a></li>
 			</ul>
 			@else
-			<li><a href="{{ route('member.signin') }}"><i class="fa fa-user fa-lg"></i> Sign in</a></li>
+			<!-- Login แล้ว -->
+			<li><a href="login.html"><i class="fa fa-user fa-lg"></i> Sign in</a></li>
 			@endif
+			<!-- Hamburger menu -->
 			<ul class="right hide-on-med-and-up">
 				<li><a class="sideNav" data-activates="mobile-demo"><i class="fa fa-bars fa-lg"></i></a></li>
 			</ul>
@@ -23,18 +26,20 @@
  	</nav>
 	</div>
 <ul class="side-nav" id="mobile-demo">
+	<!-- Login แล้ว -->
 	@if (Auth::check())
-	<li><a href="{{route('profile.profile',['num'=>Auth::user()->id])}}" style="display: flex;">
-		<img src="/avatar/{{ Auth::user()->avatar }}" width="30" height="30" style="margin-top: 7px;">
-		<span class="name">{{ Auth::user()->username }}</span>
+	<li><a href="profile.html" style="display: flex;">
+		<img src="images/orange2.jpg" width="30" height="30" style="margin-top: 7px;">
+		<span class="name">Udomsub Naikorn</span>
 	</a></li>
+	<!-- ยังไม่ Login -->
 	@else
-	<li><a href="{{ route('member.signin') }}"><i class="fa fa-user fa-lg"></i>Sign in</a></li>
+	<li><a href="login.html"><i class="fa fa-user fa-lg"></i>Sign in</a></li>
 		@endif
     <li><a href="{{ route('feed.index') }}">News</a></li>
 	<li><a href="{{ route('mainclub') }}">Clubs</a></li>
 	<li class="active"><a href="{{ route('classroom.classroom') }}">Classroom</a></li>
 		@if (Auth::check())
-	<li><a href="{{ route('member.signout') }}"><i class="fa fa-sign-out fa-lg"></i>Logout</a></li>
+	<li><a href="login.html"><i class="fa fa-sign-out fa-lg"></i>Logout</a></li>
 	@endif
 </ul>
