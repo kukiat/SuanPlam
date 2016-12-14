@@ -8,10 +8,10 @@ class CreatePostblogTable extends Migration{
       Schema::create('postblog',function(Blueprint $table){
         $table->increments('id');
         $table->integer('member_id');
-        $table->integer('parent_id')->nullable();
         $table->text('topic');
         $table->text('body');
         $table->string('category');
+        $table->integer('views')->default('0');
         $table->timestamps();
       });
     }

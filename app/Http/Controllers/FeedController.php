@@ -2,6 +2,8 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use DB;
+use App\Http\Controllers\Controller;
 use App\Models\member_user;
 use App\Models\Status;
 use App\Models\comment;
@@ -17,9 +19,6 @@ use Illuminate\Http\Request;
 class FeedController extends Controller{
 
   public function postStatus(Request $request){
-    //  dd($request->tag_select[2]);
-    // dd(count($request->tag_select));
-
     $this->validate($request, [
       'topic' => 'required|max:100',
       'txx' => 'required|max:5000',
@@ -37,12 +36,13 @@ class FeedController extends Controller{
       $posttag->tag_id = $request->tag_select[$x];
       $posttag->save();
     }
-
+    
     return redirect()->route('feed.index')->with('info','โพสเรียบร้อย');
 
   }
 
   public function Blog($blog){
+    DB::table('postblog')->where('id', '=', $blog)->increment('views');
     $val = Status::where('id', '=', $blog)->get();
     $send = comment::where('blog_comment_id', '=', $blog)->get();
     $posttag = posttag::where('post_id', '=', $blog)->get();
@@ -109,4 +109,5 @@ class FeedController extends Controller{
 
     return view('tag.tagshow')->with('posttag',$posttag)->with('posttags',$posttags);
   }
+
 }

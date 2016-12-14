@@ -13,7 +13,7 @@ class norequest extends Model{
     public function members(){
       return $this->belongsTo('App\Models\member_user','member_norequestclub_id');
     }
-    public function club(){
+    public function clubs(){
       return $this->belongsTo('App\Models\clubmain','club_norequestclub_id');
     }
 }

@@ -1,31 +1,47 @@
 @extends('layouts.main')
 @section('content')
-  <div class="row">
-    <div class="col-ms-6">
-      <h1>เข้าสู่ระบบ</h1>
-      <form class="form-vertical" action="{{ route('member.signin') }}" method="post">
-        <div class="form-group {{ $errors->has('email') ? ' has-error' : '' }}" >
-          <label for="email" class="control-label">E-mail : </label>
-          <input type="text" name="email" class="form-control" id="email" style="width: 260px;">
-          @if ($errors->has('email'))
-            <span class="help-block">{{ $errors->first('email') }}</span>
-          @endif
-        </div>
-        <div class="form-group {{ $errors->has('password') ? ' has-error' : '' }}">
-          <label for="password" class="control-label">password : </label>
-          <input type="password" name="password" class="form-control" id="password" style="width: 260px;">
-          @if ($errors->has('password'))
-            <span class="help-block">{{ $errors->first('password') }}</span>
-          @endif
-        </div>
-        <div class="checkbox">
-          <label><input type="checkbox" name="remember">Remember</label>
-        </div>
-        <div class="form-group">
-          <button type="submit" class="btn btn-default">sign up</button>
-        </div>
-        <input type="hidden" name="_token" value="{{ Session::token() }}">
-      </form>
-    </div>
-  </div>
+
+<div class="container">
+		<div class="row">
+			<div class="col s12 m10 l10 offset-l1 offset-m1 ">
+				<div class="card-panel deep-orange z-depth-3" style="text-align: center">
+					<span class="Login-title  white-text">LOGIN</span>
+				</div>
+				<div class="card-panel lighten-4 z-depth-3" style="margin-top:-14px">
+				<div class="row">
+					<form class="col s12" action="{{ route('member.signin') }}" method="post">
+						<div class="row">
+							<div class="input-field col s6 offset-s3 {{ $errors->has('email') ? ' has-error' : '' }}" >
+					          <input id="email" type="email" class="validate" name="email">
+					          <label for="email">Email</label>
+										@if ($errors->has('email'))
+					            <div class="red-text" >{{ $errors->first('email') }}</div>
+					          @endif
+					    </div>
+
+					    </div>
+					    <div class="row">
+					    	<div class="input-field col s6 offset-s3 {{ $errors->has('password') ? ' has-error' : '' }}">
+					          <input id="password" type="password" class="validate" name="password">
+					          <label for="password">Password</label>
+										@if ($errors->has('password'))
+					            <div class="red-text">{{ $errors->first('password') }}</div>
+					          @endif
+					        </div>
+					    </div>
+							<div class="col s11">
+						    <div class="col s6 offset-s5">
+						      <button class="btn waves-effect waves-light" type="submit" >Submit</button>
+                  <button class="btn waves-effect waves-light" type="button" ><a href="{{route('member.signup')}}">Signup</a></button>
+						    </div>
+						  </div>
+							<input type="hidden" name="_token" value="{{ Session::token() }}">
+					</form>
+
+
+				</div>
+				</div>
+			</div>
+		</div>
+	</div>
 @stop

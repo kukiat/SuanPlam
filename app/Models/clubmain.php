@@ -16,8 +16,11 @@ class clubmain extends Model{
     public function members(){
       return $this->belongsTo('App\Models\member_user','member_request_id');
     }
-
-    public function norequest(){
+    
+    public function norequests(){
       return $this->hasMany('App\Models\norequest','club_norequestclub_id');
+    }
+    public function feedclubs(){
+      return $this->hasMany('App\Models\feedclub','club_id');
     }
 }

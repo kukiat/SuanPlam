@@ -8,18 +8,17 @@
 					<div class="profile-head">
 						<h5 class="center-align" style="padding-top: 12px;color:white">ข้อมูลส่วนตัว</h5>
 					</div>
-          @foreach($numprofile as $numprofile)
 					<div class="profile-panel">
 						<div class="profile-profile">
-							<img src="/avatar/{{ $numprofile->avatar  }}" data-target="edit-picture" width="150" height="150" style="border-radius: 50%;margin-left: 10px;">
+							<img src="images/test.jpg" width="150" height="150" style="border-radius: 50%;margin-left: 10px;">
+							@foreach($numprofile as $numprofile)
 								<div class="profile-data">
-
 									<div class="input-field col s12 m12 l12 ">
-							          	<input placeholder="Placeholder" id="Username" type="text" class="valid" value="{{$numprofile->username}}">
+							          	<input placeholder="Placeholder" id="Username" type="text" class="valid" value="kaowantna">
 							          	<label for="username">{{$numprofile->username}}</label>
 							        </div>
 							        <div class="input-field col s12 m12 l12 ">
-							          	<input placeholder="" id="first_name" type="text" class="valid" value="{{$numprofile->email}}">
+							          	<input placeholder="" id="first_name" type="text" class="valid" value="kaowantna@gmail.com">
 							          	<label for="first_name">{{$numprofile->email}}</label>
 							        </div>
 						        </div>
@@ -28,8 +27,8 @@
 				        <div class="row">
     						<div class="col s12">
       							<ul class="tabs">
-        							<li class="tab col s3"><a href="#post-owner">ข่าวสารที่เคยตั้ง</a></li>
-
+        							<li class="tab col s3"><a href="#post-owner">ข่าวสาร</a></li>
+        							<li class="tab col s3"><a class="active" href="#comment-owner">ความคิดเห็น</a></li>
       							</ul>
     						</div>
     						<div id="post-owner" class="col s12">
@@ -38,18 +37,17 @@
 									<!-- โพสที่เคยสร้าง -->
 				        			<div class="post moveIn" style="margin-left: 20px">
 		    							<div class="post-profile">
-		    								<img src="/avatar/{{$blogprofile->member_userr->avatar}}">
+		    								<img src="images/test.jpg">
 		    							</div>
 		    							<div class="topic">
-			    							<a href="#modal-post">{{$blogprofile->topic}}</a>
-			    							<div class="detail">{!! str_limit($blogprofile->body,15) !!}</div>
+			    							<a href="#modal-post">หัวข้อ</a>
+			    							<div class="detail">เนื้อหาในกระทู้</div>
 				    						<div class="post-user"><a href="" class="black-text">คนสร้าง</a><span style="font-size: 0.8rem;">&nbsp;สร้างเมื่อ 15 ตุลาคม 2556</span></div>
 			    						</div>
 			    					</div>
 										@endforeach
 	    						</div>
     						</div>
-								<!-- คอมเม้น -->
 
   						</div>
 					</div>
@@ -125,26 +123,6 @@
 
 		</div>
 	</div>
-	<div id="edit-picture" class="modal">
-		<div class="modal-content">
-				<h4>แก้ไขรูปภาพชมรม</h4>
-				<div class="input-field file-field col s12 ">
-					<form enctype="multipart/form-data" method="POST" action="{{ route('profile.avatar') }}">
-							<div class="btn">
-								<span>File</span>
-
-								<input type="file" name="avatar">
-						</div>
-						<div class="file-path-wrapper">
-								<input class="file-path validate" type="text">
-						</div>
-						<button type="submit" class="waves-effect waves-light btn btn-flat right">เปลี่ยนรูปภาพ</button>
-						<input type="hidden" name="_token" value="{{ Session::token() }}">
-					</form>
-			</div>
-		</div>
-	</div>
-
 	<script>
 		$(document).ready(function(){
 

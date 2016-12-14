@@ -290,6 +290,7 @@ class ComposerStaticInit927954e997fd8c70a7ea60ac002e6937
         'CreateCommentincommentTable' => __DIR__ . '/../..' . '/database/migrations/2016_12_10_041851_create_commentincomment_table.php',
         'CreateCommentreplyTable' => __DIR__ . '/../..' . '/database/migrations/2016_11_07_024341_create_commentreply_table.php',
         'CreateFeedclubTable' => __DIR__ . '/../..' . '/database/migrations/2016_12_10_175649_create_feedclub_table.php',
+        'CreateFeedtagTable' => __DIR__ . '/../..' . '/database/migrations/2016_12_12_182335_create_feedtag_table.php',
         'CreateMembersTable' => __DIR__ . '/../..' . '/database/migrations/2016_11_07_024224_create_members_table.php',
         'CreateNorequestclubTable' => __DIR__ . '/../..' . '/database/migrations/2016_12_10_231121_create_norequestclub_table.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',

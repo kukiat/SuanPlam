@@ -18,6 +18,9 @@ class feedclub extends Model{
     public function user(){
       return $this->belongsTo('App\Models\member_user','member_id');
     }
+    public function clubmains(){
+      return $this->belongsTo('App\Models\clubmain','club_id');
+    }
     // public function commentcomment(){
     //   return $this->hasMany('App\Models\commentcomment','comment_commentincomment_id');
     // }

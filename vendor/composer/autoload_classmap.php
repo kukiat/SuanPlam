@@ -12,6 +12,7 @@ return array(
     'CreateCommentincommentTable' => $baseDir . '/database/migrations/2016_12_10_041851_create_commentincomment_table.php',
     'CreateCommentreplyTable' => $baseDir . '/database/migrations/2016_11_07_024341_create_commentreply_table.php',
     'CreateFeedclubTable' => $baseDir . '/database/migrations/2016_12_10_175649_create_feedclub_table.php',
+    'CreateFeedtagTable' => $baseDir . '/database/migrations/2016_12_12_182335_create_feedtag_table.php',
     'CreateMembersTable' => $baseDir . '/database/migrations/2016_11_07_024224_create_members_table.php',
     'CreateNorequestclubTable' => $baseDir . '/database/migrations/2016_12_10_231121_create_norequestclub_table.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',

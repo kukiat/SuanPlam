@@ -1,0 +1,163 @@
+@extends('layouts.main')
+@section('content')
+	<div class="container main">
+		<div class="club-header z-depth-3" style="background-image: url('/avatar/{{ $main->avatar }}');">
+	        <h3 class="center-align white-text">{{ $main->club_name }}</h3>
+		</div>
+		<div class="row">
+	    <div class="col s12 m12 l12">
+	      	<ul class="tabs z-depth-3">
+		        <li class="tab col s3 black-text text-black"><a href="#posts" class="active">ข่าวสาร</a></li>
+		        <li class="tab col s3"><a href="#members">สมาชิก</a></li>
+	      	</ul>
+	    </div>
+
+			<!-- Posts -->
+		    <div id="posts" class="col s12 m12 l12">
+		    	<div class="col s12 m12 l12">
+		    		<div class="col s12 m9 l9 posts z-depth-3">
+							@foreach($showfeed as $showfee)
+			    			<div class="post moveIn">
+			    				<div class="post-profile">
+			    					<img src="/avatar/{{ {{ $showfee->user->avatar }}}}">
+			    				</div>
+			    				<div class="topic">
+				    				<a href="#modal-post" onclick="showfeedclub('{{ $showfee->id }}','{{ $showfee->user->username }}')">{{ $showfee->topic }}</a>
+				    				<div class="detail">{{ $showfee->body }}</div>
+				    				<div class="post-user"><a href="" class="black-text">{{ $showfee->user->username }}</a><span style="font-size: 0.8rem;">&nbsp;{{ $showfee->created_at->diffForHumans()}}</span></div>
+			    				</div>
+			    			</div>
+							@endforeach
+						</div>
+		    		<div class="col s12 m3 l3 detail">
+		    			<!-- สร้างข่าวสาร -->
+		    			<div class="col s12 m12 l12">
+		    				<div class="z-depth-3 description">
+									@if(Auth::check())
+								    @if(Auth::user()->type == 'user')
+								      @if($check)
+						    			<center>
+											<a href="{{ route('create.club',['id'=>$club]) }}"class="waves-effect waves-light btn" data-target="club-open" id="post">สร้างข่าวสาร</a></center>
+											@else
+						    			<!-- ขอเข้าชมรม -->
+						    			<center>
+											<a class="waves-effect waves-light btn" data-target="club-open" id="join">ขอเข้าชมรม</a></center>
+											@endif
+								    @endif
+								  @endif
+		    					<h5>คำอธิบายชมรม</h5>
+		    					<p>{{ $main->detail }}</p>
+		    				</div>
+		    			</div>
+		    		</div>
+		    	</div>
+		    </div>
+		    <!-- Members -->
+		    <div id="members" class="col s12">
+			    <div class="col s12 m12 l12 z-depth-3 members">
+						@foreach($showmember as $showmembe)
+			    		<div class="col s12 m6 l4 member">
+			    			<div class="member-picture">
+			    				<img src="avatar/{{ $showmembe->user->avatar }}">
+			    			</div>
+			    			<div class="member-profile">
+			    				<a href="" class="black-text">{{ $showmembe->user->username }}</a>
+			    			</div>
+			    		</div>
+						@endforeach
+	    		</div>
+		    </div>
+	  	</div>
+
+	</div>
+
+
+  <!-- Modal Structure -->
+
+	<div id="tttt"></div>
+
+	<script>
+	  $(document).ready(function(){
+	    $(document).on('submit','#submitcommentclub',function(){
+	      var text = $('#textclubcomment').val()
+	      var id = $('#hiddenidclub').val()
+	      $.ajax({
+	        url:"{{ route('postcommentclub')}}",
+	        type:"POST",
+	        data:{text,text,id:id,_token:"{{ Session::token() }}"},
+	        success:function(data){
+	          $('#show_comment_club').append((data.name).username+(data.comment).body)
+	          $('#textclubcomment').val('')
+	        }
+	      })
+	      return false;
+	    })
+	  })
+	  function gotorequest(clubid,memberid){
+	    var id = clubid;
+	    var member = memberid;
+	    $.ajax({
+	      url:"{{ route('postrequestclubforother') }}",
+	      type:"POST",
+	      data:{id:id,member:member,_token:"{{ Session::token() }}"},
+	      success:function(data){
+	        alert(data)
+	      }
+	    })
+	    return false;
+	  }
+	  function showfeedclub(id,name){
+	    $.ajax({
+	      url:"{{ route('postclubdetail') }}",
+	      type:"POST",
+	      data:{id:id,_token:"{{ Session::token() }}"},
+	      success:function(data){
+	        $('#tttt').html('<h3>'+'ชื่อกระทู้'+'</h3>'+data.feedclub.topic+'<h3>'+'เนื้อหา'+'</h3>'+data.feedclub.body+
+	          '<div id="show_comment_club">'+'</div>'+
+	          '<div id="show_comment_clubb">'+'</div>'+
+	          '<form id="submitcommentclub" method="post">'+
+	            '<input type="hidden" id="hiddenidclub" value="'+id+'">'+
+	            '<textarea class="form-control" id="textclubcomment" rows="2" >'+'</textarea>'+
+	            '<button type="submit" class="btn btn-success">'+'ตกลง'+'</button>'+
+	            '<input type="hidden" name="_token" value="{{ Session::token() }}">'+
+	          '</form>'
+	        )
+	        for(i in data.name){
+	          $('#show_comment_clubb').append(data.name[i].username+'<br>')
+	        }
+	        for(i in data.commentfeedclub){
+	          $('#show_comment_club').append(data.commentfeedclub[i].body+'<br>')
+	        }
+	      }
+	    })
+	  }
+	</script>
+@stop
+
+<div id="modal-post" class="modal" style="padding-bottom: 20px;">
+	<div class="modal-content">
+		<h4>หัวข้อ</h4>
+		<p>ราะเอียด</p>
+		<h5 style="margin-top: 30px;">ความคิดเห็น</h5>
+		<hr>
+		<div class="post-comments">
+
+			<div class="post-comment">
+				<div class="post-comment-picture">
+					<img src="images/test.jpg">
+				</div>
+				<div class="post-comment-content">
+					<div>kaonaja</div>
+					<div>asdlasklkadslds</div>
+				</div>
+			</div><hr>
+	<form action="">
+		<div class="input-field col s12">
+					<textarea id="write-comment" class="materialize-textarea"></textarea>
+					<label for="write-comment">เขียนความคิดเห็น...</label>
+					<button type="submit" class="waves-effect waves-light btn">แสดงความคิดเห็น</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

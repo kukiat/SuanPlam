@@ -4,14 +4,12 @@
 		<div class="row">
 			<div class="col s12 m12 l12">
 				<h4>ข่าวสารล่าสุดจากชมรมต่างๆ</h4>
-
-					<ul class="collection with-header z-depth-2">
-						@foreach($feedrecent as $feedrecen)
-				  		<li class="collection-item"><a href="{{ route('getpage.getpage',['club' => $feedrecen->clubmains->id] ) }}">{{$feedrecen->clubmains->club_name}}</a> :
+				@foreach($feedrecent as $feedrecen)
+					<ul class="collection with-header">
+				  	<li class="collection-item"><a href="{{ route('getpage.getpage',['club' => $feedrecen->clubmains->id] ) }}">{{$feedrecen->clubmains->club_name}}</a> :
 							<a href="#feed" onclick="showfeedclubb('{{ $feedrecen->id }}','{{ $feedrecen->clubmains->club_name }}')">{{$feedrecen->topic}}</a><span class="right">{{$feedrecen->created_at->diffForHumans()}}</span></li>
-						@endforeach
-					</ul>
-
+				  </ul>
+				@endforeach
 			</div>
 			<div class="col s12 m12 l12 create-club">
 				<h2>ชมรมในเว็บไซต์สวนปาล์ม</h2>
@@ -55,7 +53,7 @@
 			</div>
 		</div>
 
-		<div class="row cards large">
+		<div class="row cards">
 			@foreach($clubmain as $clubmainn)
 			<div class="col s6 m4 l4">
 				<div class="card hoverable">
@@ -77,7 +75,7 @@
 				      <span class="card-title grey-text text-darken-4">{{ $clubmainn->club_name }}</span>
 				      <p class="card-title">{{ $clubmainn->detail }}</p>
 				    </div>
-						<div class="card-action center-align waves-effect waves-light" onclick="window.location='{{ route('getpage.getpage',['club'=> $clubmainn->id ]) }}'	">
+						<div class="card-action center-align waves-effect waves-light">
 			        <a href="{{ route('getpage.getpage',['club'=> $clubmainn->id ]) }}" class="text-white white-text">เข้าดูชมรม</a>
 			      </div>
 				</div>
@@ -121,7 +119,6 @@
 									</div>
 				        </div>
 				    </div>
-
 				    <div class="modal-footer">
 				      	<input type="submit" class="modal-action modal-close btn-flat" class="req-open-club"></input>
 								<input type="hidden" name="_token" value="{{ Session::token() }}">
@@ -129,9 +126,9 @@
 				    </div>
 			    </form>
 				</div>
+
 		@endif
 	@endif
-  <div id="ttt"></div>
 	<script>
 	  $(document).ready(function(){
 	    $('#addclub').submit(function(){
@@ -155,16 +152,17 @@
 	        type:"POST",
 	        data:{text,text,id:id,_token:"{{ Session::token() }}"},
 	        success:function(data){
-            $('#add-comment').append(
-              '<div class="post-comment">'+
-                '<div class="post-comment-picture">'+
-                  '<img src="/avatar/'+(data.name).avatar+'">'+
-                '</div>'+
-                '<div class="post-comment-content">'+
-                  '<div>'+(data.name).username+'</div>'+
-                  '<div>'+(data.comment).body+'</div>'+
-                '</div>'+
-              '</div>'+'<hr>'
+
+						$('#show_comment_club').append(
+							'<div class="post-comment">'+
+			      		'<div class="post-comment-picture">'+
+			      			'<img src="images/test.jpg">'+
+			      		'</div>'+
+			      		'<div class="post-comment-content">'+
+			      			'<div>'+(data.name).username+'</div>'+
+			      			'<div>'+(data.comment).body)+'</div>'+
+			      	'	</div>'
+			      	'</div>''<hr>'
 						)
 	          $('.textclubcomment').val('')
 	        }
@@ -179,46 +177,24 @@
 	      type:"POST",
 	      data:{id:id,_token:"{{ Session::token() }}"},
 	      success:function(data){
-          var comments='';
-          for(i in data.name){
-            var user = data.name[i].username
-            var text =data.commentfeedclub[i].body
-            var pic = data.name[i].avatar
-            comments += '<div class="post-comment">'+
-              '<div class="post-comment-picture">'+
-                '<img src="/avatar/'+pic+'">'+
-              '</div>'+
-              '<div class="post-comment-content">'+
-                '<div>'+user+'</div>'+
-                '<div>'+text+'</div>'+
-              '</div>'+
-            '</div>'+'<hr>';
-          }
-          $('#ttt').html('<div id="news" class="modal" style="padding-bottom: 20px;">'+
-              '<div class="modal-content">'+
-                '<h4>'+data.feedclub.topic+'</h4>'+
-                '<p>'+data.feedclub.body+'</p>'+
-                '<h5 style="margin-top: 30px;">'+'ความคิดเห็น'+'</h5>'+
-                '<hr>'+
-                '<div class="post-comments" id="add-comment">'+
-                comments+
-
-                '</div>'+
-                '<form id="submitcommentclub" method="post">'+
-                  '<div class="input-field col s12">'+
-                        '<input type="hidden" id="hiddenidclub" value="'+id+'">'+
-                        '<textarea id="write-comment" class="materialize-textarea textclubcomment">'+'</textarea>'+
-                        '<label for="write-comment">'+'เขียนความคิดเห็น...'+'</label>'+
-                        '<button type="submit" class="waves-effect waves-light btn">'+'แสดงความคิดเห็น'+'</button>'+
-                        '<input type="hidden" name="_token" value="{{ Session::token() }}">'+
-                      '</div>'+
-                    '</form>'+
-              '</div>'+
-            '</div>'
-          )
-        	$('.modal').modal();
-        	$('#news').modal('open');
-        }
+					alert(data.name+" "+data.commentfeedclub)
+	        $('#ttt').html('<h3>'+'ชื่อกระทู้'+'</h3>'+data.feedclub.topic+'<h3>'+'เนื้อหา'+'</h3>'+data.feedclub.body+
+	          '<div id="show_comment_club">'+'</div>'+
+	          '<div id="show_comment_clubb">'+'</div>'+
+	          '<form id="submitcommentclub" method="post">'+
+	            '<input type="hidden" id="hiddenidclub" value="'+id+'">'+
+	            '<textarea class="form-control textclubcomment"  rows="2" >'+'</textarea>'+
+	            '<button type="submit" class="btn btn-success">'+'ตกลง'+'</button>'+
+	            '<input type="hidden" name="_token" value="{{ Session::token() }}">'+
+	          '</form>'
+	        )
+	        for(i in data.name){
+	          $('#show_comment_clubb').append('ssss'+data.name[i].username+'<br>')
+	        }
+	        for(i in data.commentfeedclub){
+	          $('#show_comment_club').append(data.commentfeedclub[i].body+'<br>')
+	        }
+	      }
 	    })
 	  }
 	</script>

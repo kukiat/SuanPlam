@@ -15,63 +15,47 @@
 		    			<div class="center-align"><a href="{{route('profile.profile',['num' => $vall->member_id])}}">{{ $vall->member_userr->username }}</a></div>
 		    			<div class="center-align time">{{ $vall->created_at->diffForHumans() }}</div>
 		    		</div>
-            <div class="tagandcat">
-		    		<div class="cat">
-		    			<i class="fa fa-folder-open"></i>
-						{{$vall->category}}
-
-		    		</div>
-		    		<div class="tag">
-		    			<i class="fa fa-tags"></i>
-              @foreach($posttag as $posttag)
-		    			  <div class="chip"><a href="{{ route('getTag',['tag_id' => $posttag->tag_id])}}">{{ $posttag->tags->tag_name }}</a></div>
-              @endforeach
-		    		</div>
-	    		</div>
 					@endforeach
 	    		<h5 style="margin-top: 30px;">ความคิดเห็น</h5>
 		      	<hr>
 		      	<!-- comment -->
-		      	<div class="post-comments" id="add-comment-news" >
-						@foreach($send as $sendd)
+		      	<div class="post-comments" id="add-comment-news">
+							@foreach($send as $sendd)
 				      	<div class="post-comment">
 				      		<div class="post-comment-picture">
 				      			<img src="/avatar/{{ $sendd->userrrr->avatar }}">
 				      		</div>
 				      		<div class="post-comment-content">
-				      			<div href="{{ route('profile.profile',['num'=>$sendd->member_comment_id])}}">{{ $sendd->userrrr->username }}</div>
-                    <div>{{ $sendd->body }}</div>
-  								@if(Auth::check())
-  									<a href="#modal-reply" onclick="replyreply('{{ $sendd->id }}','{{ $sendd->statused->id}}')">ตอบกลับ</a>
-  								@endif
-								  &nbsp;
-  								@if(Auth::check())
-                    @if((Auth::user()->id)==($sendd->member_comment_id))
-  										<a href="#modal-edit" onclick="ggg('{{ $sendd->body }}','{{ $sendd->id }}')">แก้ไข</a>
-  									@endif
-
-  								@endif
+				      			<div href="{{ route('profile.profile',['num'=>$sendd->member_comment_id])}}">{{ $sendd->userrrr->username }}</div><span style="font-size: 0.9rem;">{{ $sendd->created_at->diffForHumans()}}</span>
+				      			<div id="editt{{ $sendd->id }}">{{ $sendd->body }}</div>
+								@if(Auth::check())
+									<a href="#modal-reply">ตอบกลับ</a>
+								@endif
+								&nbsp;
+								@if(Auth::check())
+                  @if((Auth::user()->id)==($sendd->member_comment_id))
+										<a href="#modal-edit" onclick="ggg('{{ $sendd->body }}','{{ $sendd->id }}')">แก้ไข</a>
+									@endif
+								@endif
 				      		</div>
 				      	</div>
-				  <!-- sub-comment -->
-
-              @foreach($commentcomment as $commentcommen)
-  								@if(($commentcommen->comment_commentincomment_id) == ($sendd->id))
-  					      <div class="post-comment subcomment">
-  					      	<div class="post-comment-picture">
-  					      		<img src="/avatar/{{ $commentcommen->members->avatar }}">
-  					      	</div>
-  					      	<div class="post-comment-content">
-					      		<div>{{ $commentcommen->members->username}}</div>
-					      		<div>{{ $commentcommen->body }}</div>
+				<!-- sub-comment -->
+							@foreach($commentcomment as $commentcommen)
+								@if(($commentcommen->comment_commentincomment_id) == ($sendd->id))
+					      	<div class="post-comment subcomment">
+					      		<div class="post-comment-picture">
+					      			<img src="images/test.jpg">
+					      		</div>
+					      		<div class="post-comment-content">
+					      			<div>{{ $commentcommen->members->username}}</div>
+					      			<div>{{ $commentcommen->body }}</div>
 					      		</div>
 					      	</div>
 								@endif
 		          @endforeach
 						@endforeach
-
 				<!-- write comment -->
-				</div>
+						</div>
 					<form method="post" action="{{ route('comment.comment',['blog' => $blog]) }}" id="form_comment">
 						<div class="input-field col s12">
 							<textarea id="write-comment" class="materialize-textarea" name="textcomment" value="{{Request::old('textcomment')}}"></textarea>
@@ -87,7 +71,16 @@
 		<div id="show_modal_edit"></div>
 		<div id="show-reply-reply"></div>
 <!-- reply -->
-
+<div id="modal-reply" class="modal">
+	<div class="modal-content">
+	  	<h4>ตอบกลับความคิดเห็น</h4>
+	  	<div class="input-field col s12 mgt50">
+      		<textarea id="write-comment" class="materialize-textarea"></textarea>
+      		<label for="write-comment" class="comment-left0">เขียนความคิดเห็น...</label>
+        	<button type="submit" class="waves-effect waves-light btn">ตอบกลับความคิดเห็น</button>
+		</div>
+	</div>
+</div>
 <!-- edit -->
 
 
@@ -102,7 +95,7 @@
               $("#error_textcomment").html('');
               var str='';
               if(((data.xx).id)==((data.vv).member_comment_id)){
-                str = '<a href="#" style="float:right; " data-toggle="modal" data-target="#edit-comment" onclick="ggg(\'' + (data.vv).body + '\',\'' + (data.vv).id + '\')">'+'แก้ไข'+'</a>'
+                str = '<a href="#" style="float:right; margin-top:-90px;" data-toggle="modal" data-target="#edit-comment" onclick="ggg(\'' + (data.vv).body + '\',\'' + (data.vv).id + '\')">'+'แก้ไข'+'</a>'
               }
               $('#add-comment-news').append('<div class="post-comment">'+
 									'<div class="post-comment-picture">'+
@@ -127,22 +120,22 @@
       });
     });
   function ggg(data,data2){
+		alert()
     var id = data2;
     $('#show_modal_edit').html('<div id="modal-edit" class="modal">'+
 			'<div class="modal-content">'+
 			  	'<h4>'+'แก้ไขความคิดเห็น'+'</h4>'+
 			  	'<div class="input-field col s12 mgt50">'+
 					'<form id="edit-comment-ajax" method="POST">'+
-		      		'<textarea id="text-comment" class="materialize-textarea">'+'</textarea>'+
+		      		'<textarea id="text-comment" class="materialize-textarea">'+data+'</textarea>'+
 		      		'<label for="write-comment" class="comment-left0">'+'เขียนความคิดเห็น...'+'</label>'+
-		        	'<button type="submit" class="waves-effect waves-light btn modal-close">'+'ตกลง'+'</button>'+
+		        	'<button type="submit" class="waves-effect waves-light btn">'+'ตอบกลับความคิดเห็น'+'</button>'+
 							'<input type="hidden" name="_token" value="{{ Session::token() }}">'+
 					'</form>'+
 				'</div>'+
 			'</div>'+
 		'</div>');
-    $('.modal').modal();
-    $('#modal-edit').modal('open');
+		$('#text-comment').val(data)
     $("#edit-comment-ajax").submit(function(){
       var dd = $('#text-comment').val();
       $.ajax({
@@ -150,6 +143,7 @@
         type:"POST",
         data:{topic:dd,id:data2,_token:  "{{ Session::token() }}"},
         success:function(data){
+          $('#modal-edit').modal('hide');
           $('#editt'+id).html(data.topic)
         }
       });
@@ -158,22 +152,27 @@
   }
   function replyreply(data,data2){
     $('#show-reply-reply').html(
-      '<div id="modal-reply" class="modal">'+
-      	'<div class="modal-content">'+
-      	  	'<h4>'+'ตอบกลับความคิดเห็น'+'</h4>'+
-      	  	'<div class="input-field col s12 mgt50">'+
+      '<div id="reply-reply" class="modal fade" role="dialog">'+
+        '<div class="modal-dialog">'+
+          '<div class="modal-content">'+
+            '<div class="modal-header">'+
+              '<button type="button" class="close" data-dismiss="modal">&times;</button>'+
+              '<h4 class="modal-title">'+'ตอบกลับ'+'</h4>'+
+            '</div>'+
+            '<div class="modal-body">'+
               '<form id="reply-reply-submit" method="post">'+
-            		'<textarea id="reply-reply-text" class="materialize-textarea" required>'+'</textarea>'+
-            		'<label for="write-comment" class="comment-left0">'+'เขียนความคิดเห็น...'+'</label>'+
-              	'<button type="submit" class="waves-effect waves-light btn modal-close">'+'ตอบกลับความคิดเห็น'+'</button>'+
+                '<textarea id="reply-reply-text" class="form-control"  rows="2" >'+'</textarea>'+
+                '<button type="submit" class="btn btn-danger op">'+'ตกลง'+'</button>'+
                 '<input type="hidden" name="_token" value="{{ Session::token() }}">'+
               '</form>'+
-      		'</div>'+
-      	'</div>'+
+            '</div>'+
+            '<div class="modal-footer">'+
+            '  <button type="button" class="btn btn-default" data-dismiss="modal">'+'Close'+'</button>'+
+            '</div>'+
+          '</div>'+
+        '</div>'+
       '</div>');
-    $('.modal').modal();
-    $('#modal-reply').modal('open');
-    $('#reply-reply-submit').submit(function(){
+  $('#reply-reply-submit').submit(function(){
     var id = data;
     var blog = data2;
     var body = $('#reply-reply-text').val()
@@ -182,16 +181,9 @@
       url:"{{ route('replyinreply') }}",
       data:{id:id,blog:blog,body:body,_token:  "{{ Session::token() }}"},
       success:function(data){
-        $('#sf'+id).append('<div class="post-comment subcomment">'+
-          '<div class="post-comment-picture">'+
-            '<img src="/avatar/'+(data.ress).avatar+'">'+
-          '</div>'+
-          '<div class="post-comment-content">'+
-          '<div>'+(data.ress).username+'</div>'+
-          '<div>'+(data.res).body+'</div>'+
-        '</div>'+
-      '</div>')
-
+        $('#reply-reply').modal('hide');
+        $('#'+id).append((data.ress).username+''+(data.res).body+
+        '<img class="img-circle img-responsive" src="/avatar/'+(data.ress).avatar+'" style="weight:15px; height:15px;"/>')
       }
     });
     return false;

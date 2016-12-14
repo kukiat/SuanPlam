@@ -14,6 +14,7 @@ class CreateClubmainTable extends Migration
           $table->text('detail');
           $table->integer('member_request_id')->unsigned();
           $table->foreign('member_request_id')->references('id')->on('members')->onDelete('cascade');
+          $table->string('avatar')->default('defaultclub.jpg');
           $table->timestamps();
       });
     }

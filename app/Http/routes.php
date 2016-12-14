@@ -121,10 +121,7 @@ Route::get('/classroom/fill/{dd}/{cc?}',[
   'as' => 'fill',
 ]);
 
-Route::post('/commentt',[
-  'uses' => '\App\Http\Controllers\EditController@editcomment',
-  'as' => 'comment.edit',
-]);
+
 Route::post('/commenttclassroom',[
   'uses' => '\App\Http\Controllers\ClassroomController@CommentClassroom',
   'as' => 'comment.class',
@@ -209,11 +206,32 @@ Route::post('/postrejectfriend',[
   'uses' => '\App\Http\Controllers\ClubController@postrejectfriend',
   'as' => 'postrejectfriend',
 ]);
-Route::post('/postcreateclub',[
-  'uses' => '\App\Http\Controllers\ClubController@postcreateclub',
-  'as' => 'postcreateclub',
-]);
+
 Route::post('/postclubdetail',[
   'uses' => '\App\Http\Controllers\ClubController@postclubdetail',
   'as' => 'postclubdetail',
+]);
+Route::post('/postcommentclub',[
+  'uses' => '\App\Http\Controllers\ClubController@postcommentclub',
+  'as' => 'postcommentclub',
+]);
+Route::post('/tests',[
+  'uses' => '\App\Http\Controllers\ClubController@tests',
+  'as' => 'tests',
+]);
+Route::post('/editclubpic',[
+  'uses' => '\App\Http\Controllers\EditController@editclubpic',
+  'as' => 'editclubpic',
+]);
+Route::post('/commentt',[
+  'uses' => '\App\Http\Controllers\EditController@editcomment',
+  'as' => 'comment.edit',
+]);
+Route::post('/scrollw',[
+  'uses' => '\App\Http\Controllers\HomeController@scrollw',
+  'as' => 'scrollw',
+]);
+Route::post('/newwwwget',[
+  'uses' => '\App\Http\Controllers\HomeController@newwwwget',
+  'as' => 'newwwwget',
 ]);

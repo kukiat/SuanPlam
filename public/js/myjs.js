@@ -23,7 +23,7 @@ $(document).ready(function(){
       $('.shower').text(data);
       $('.shower').empty();
       for(i in data){
-        $('.shower').append('<div class="list-group-item bb" onclick="detail(\'' + data[i].code + '\')" style="margin-top:7px;margin-left:8px;cursor:hand;font-size:15px;">'+data[i].code+'<br>'+data[i].name+'</div>')
+        $('.shower').append('<div class="course-card bb" onclick="detail(\'' + data[i].code + '\')"><span class="course-id">'+data[i].code+'</span> <span class="course-name">'+data[i].name+'</span></div>')
       }
     });
   });
@@ -50,7 +50,7 @@ $(document).ready(function(){
       $('.shower').text(data);
       $('.shower').empty();
       for(i in data){
-        $('.shower').append('<div class="list-group-item bb" onclick="detail(\'' + data[i].code+ '\')"style="margin-top:7px;margin-left:8px;cursor:hand;font-size:15px;">'+data[i].code+'<br>'+data[i].name+'</div>')
+        $('.shower').append('<div class="course-card bb" onclick="detail(\'' + data[i].code + '\')"><span class="course-id">'+data[i].code+'</span> <span class="course-name">'+data[i].name+'</span></div>')
       }
       if(xx==01){
         $('.oo').empty();
@@ -171,7 +171,7 @@ $(document).ready(function(){
           $('.shower').text(data);
           $('.shower').empty();
           for(i in data){
-            $('.shower').append('<div class="list-group-item bb" onclick="detail(\'' + data[i].code+ '\')"style="margin-top:7px;margin-left:8px;cursor:hand;font-size:15px;">'+data[i].code+'<br>'+data[i].name+'</div>')
+            $('.shower').append('<div class="course-card bb" onclick="detail(\'' + data[i].code + '\')"><span class="course-id">'+data[i].code+'</span> <span class="course-name">'+data[i].name+'</span></div>')
           }
         });
       }
@@ -182,7 +182,7 @@ $(document).ready(function(){
             $('.shower').text(data);
             $('.shower').empty();
             for(i in data){
-              $('.shower').append('<div class="list-group-item bb" onclick="detail(\'' + data[i].code+ '\')"style="margin-top:7px;margin-left:8px;cursor:hand;font-size:15px;">'+data[i].code+'<br>'+data[i].name+'</div>')
+              $('.shower').append('<div class="course-card bb" onclick="detail(\'' + data[i].code + '\')"><span class="course-id">'+data[i].code+'</span> <span class="course-name">'+data[i].name+'</span></div>')
             }
           });
         }
@@ -191,7 +191,7 @@ $(document).ready(function(){
 
 });
 function detail(data){
-
+  console.log(data+'xxx')
   $('#commentclass').val('');
   $.ajax( "/classroom/ajax/"+ data).done(function(data){
     $('#show').html('<b>'+(data.yoyo).code+'<b>'+'<br>'+'<b >'+(data.yoyo).name+'</b>');
@@ -204,7 +204,7 @@ function detail(data){
     $('.show_comment').empty();
 
     for(i in data.comment){
-      $('.show_comment').append('name : '+data.comment[i].classmember_comment_id+'<br>'+'body :'+data.comment[i].body+'<hr>')
+      $('.show_comment').append('<div class="post-comment"> <div class="post-comment-content"><div> Name : '+data.comment[i].classmember_comment_id+'</div>'+'<div> Note :'+data.comment[i].body+'</div></div></div>')
     }
   });
 
@@ -214,19 +214,9 @@ function detail(data){
     $('.showw1').empty();
     for(i in data){
       $('.showw1').append(
-      '<div data-toggle="modal" data-target="#showdetail" onclick="ccc(\'' + data[i].code+ '\')" class="list-group-item box-detail" style="margin-top:7px;margin-left:8px;cursor:hand;font-size:15px;">'
-        +'<div class="box-left size-text-left">'+'</b>'+'<b id="section_number">'+data[i].section+'</b>'+'</div>'
-        +'<div class="box-right">'+'<b id="ggg">'+data[i].code+'<b>'+' Day : '+'</b>'+data[i].day+'<b>'+' Time : '+'</b>'+data[i].time+'</b>'+'<b>'+' Profressor : '+'</b>'+data[i].prof
-        +'<b>'+' Seat : '+'</b>'+data[i].n+'<b>'+' Owner : '+'</b>'+data[i].owner+'<b>'+' Room : '+'</b>'+data[i].room+'</div>'
-      +'</div>');
+      '<li class="collection-item avatar"> <i class ="red circle">'+data[i].section+'</i><span class="title"><b>Time : '+data[i].day+'  '+data[i].time+'</b></span><p><b>Profressor : '+data[i].prof+'</b><br><b>Room : '+data[i].room+'</b></p></li>');
 
     }
-
-    $('#comment_class').html('<form id="submit_comment_class" method="POST">'+
-      '<textarea name="comment_text_class" id="comment_text_class" rows="3" cols="80">'+'</textarea>'+'<br>'+
-      '<input type="submit" class="btn btn-success" value="ตกลง" >'+
-      '<input type="hidden" name="_token" value="{{ Session::token() }}">'+
-    '</form>');
   });
 }
 function ccc(data){
